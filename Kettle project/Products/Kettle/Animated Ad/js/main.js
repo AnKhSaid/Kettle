@@ -155,7 +155,7 @@ const turnArc = svg('path', { d: '', 'marker-end': '', opacity: 0 }, $('#howto')
 const turnHead = svg('path', { d: '', fill: 'var(--leaf)', stroke: 'none', opacity: 0 }, $('#howto'));
 
 // text prep
-const wD = words($('#tD')), wE1 = words($('#tE1')), wF = [...words($('#tF')), ...words($('#tF2'))], wG1 = words($('#tG1')), wI1 = words($('#tI1'));
+const wD = [...words($('#tD')), ...words($('#tD2'))], wE1 = words($('#tE1')), wF = [...words($('#tF')), ...words($('#tF2'))], wG1 = words($('#tG1')), wI1 = words($('#tI1'));
 
 // ---------- state driven by the timeline ----------
 const S = {
@@ -176,7 +176,7 @@ const out = (sel, time, dur = .35) => tl.to(sel, { opacity: 0, y: -30, duration:
 
 // initial states
 set(0, '#tA, #tB', { '--p': 0 });
-set(0, '#tD, #tE1, #tE2, #tF, #tF2, #tG1, #tG2, #tI1, #tI2, #step', { opacity: 1 });
+set(0, '#tD, #tD2, #tE1, #tE2, #tF, #tF2, #tG1, #tG2, #tI1, #tI2, #step', { opacity: 1 });
 set(0, [...wD, ...wE1, ...wF, ...wG1, ...wI1], { opacity: 0 });
 set(0, '#tE2, #tG2, #tI2', { opacity: 0 });
 set(0, '#scribble', { drawSVG: '0% 0%' });
@@ -226,7 +226,7 @@ at(7.2, S, { odoScale: 1, punch: 1, duration: .5, ease: 'elastic.out(1, .45)' })
 at(7.2, S, { confetti: 1, duration: 1.3, ease: 'power2.out' });
 tl.fromTo(S, { flash: .5 }, { flash: 0, duration: .5, ease: 'power2.out', immediateRender: false }, 7.2);
 wordSlam(wD, 7.3, .12);
-out('#tD', 8.75, .35);
+out('#tD, #tD2', 8.75, .35);
 at(8.6, S, { tickK: 0, duration: .4, ease: 'power2.in' });
 at(8.6, '#ring', { drawSVG: '0% 100%', duration: .3, ease: 'power2.inOut' });
 at(8.9, '#ring', { morphSVG: DIAL_D, strokeWidth: 5, stroke: '#1B1A18', duration: .7, ease: 'power3.inOut' });
