@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MATET Kettle Ad</title>
+<style>
+  @font-face { font-family: "Naskh"; font-weight: 500; src: url(fonts/noto-naskh-arabic-arabic-500-normal.woff2) format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC; }
+  @font-face { font-family: "Naskh"; font-weight: 700; src: url(fonts/noto-naskh-arabic-arabic-700-normal.woff2) format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC; }
+  @font-face { font-family: "Naskh"; font-weight: 500; src: url(fonts/noto-naskh-arabic-latin-500-normal.woff2) format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2026; }
+  @font-face { font-family: "Naskh"; font-weight: 700; src: url(fonts/noto-naskh-arabic-latin-700-normal.woff2) format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2026; }
+  @font-face { font-family: "Plex"; font-weight: 300; src: url(fonts/ibm-plex-sans-arabic-arabic-300-normal.woff2) format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC; }
+  @font-face { font-family: "Plex"; font-weight: 400; src: url(fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2) format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC; }
+  @font-face { font-family: "Plex"; font-weight: 500; src: url(fonts/ibm-plex-sans-arabic-arabic-500-normal.woff2) format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC; }
+  @font-face { font-family: "Plex"; font-weight: 600; src: url(fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2) format("woff2"); unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC; }
+  @font-face { font-family: "Plex"; font-weight: 300; src: url(fonts/ibm-plex-sans-arabic-latin-300-normal.woff2) format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2026; }
+  @font-face { font-family: "Plex"; font-weight: 400; src: url(fonts/ibm-plex-sans-arabic-latin-400-normal.woff2) format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2026; }
+  @font-face { font-family: "Plex"; font-weight: 500; src: url(fonts/ibm-plex-sans-arabic-latin-500-normal.woff2) format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2026; }
+  @font-face { font-family: "Plex"; font-weight: 600; src: url(fonts/ibm-plex-sans-arabic-latin-600-normal.woff2) format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2026; }
+
+  :root {
+    --cream: #F2EDE3;
+    --ink: #1B1A18;
+    --muted: #7A7366;
+    --soft: #D9D1C1;
+    --green: #3E7A38;
+    --leaf: #6AA344;
+    --clay: #C8613F;
+    --matte: #1C1C1D;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #111; height: 100%; overflow: hidden; }
+
+  #stage {
+    position: absolute; left: 0; top: 0;
+    width: 1080px; height: 1920px;
+    background: var(--cream);
+    overflow: hidden;
+    transform-origin: 0 0;
+    font-family: "Plex", sans-serif;
+    color: var(--ink);
+  }
+  #stage svg.layer { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: visible; }
+
+  .draw { stroke-dasharray: 1 1; stroke-dashoffset: 1; opacity: 0; }
+  .ln { fill: none; stroke: var(--ink); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+
+  .txt {
+    position: absolute; left: 60px; right: 60px;
+    text-align: center; direction: rtl;
+    white-space: nowrap;
+  }
+  .txt .w { display: inline-block; opacity: 0; will-change: transform, opacity, filter; }
+  .serif { font-family: "Naskh", serif; font-weight: 700; }
+  .h1 { font-size: 92px; line-height: 1.35; }
+  .h2 { font-size: 64px; line-height: 1.4; }
+  .body { font-size: 40px; line-height: 1.5; color: var(--muted); font-weight: 400; }
+
+  .feat { position: absolute; right: 270px; left: 60px; direction: rtl; text-align: right; opacity: 0; }
+  .feat b { display: block; font-family: "Naskh", serif; font-weight: 700; font-size: 60px; line-height: 1.35; color: var(--ink); }
+  .feat span { display: block; font-size: 38px; color: var(--muted); line-height: 1.5; }
+
+  #cta {
+    position: absolute; left: 50%; top: 1140px; transform: translateX(-50%);
+    background: var(--green); color: var(--cream);
+    font-family: "Naskh", serif; font-weight: 700; font-size: 58px;
+    padding: 14px 80px 22px; border-radius: 999px; opacity: 0; white-space: nowrap;
+  }
+  #phone {
+    position: absolute; left: 0; right: 0; top: 1290px; text-align: center; direction: ltr;
+    font-size: 50px; font-weight: 500; letter-spacing: 1px; color: var(--ink); opacity: 0;
+  }
+  #phone svg { width: 50px; height: 50px; vertical-align: -9px; margin-right: 16px; }
+  #bsc { position: absolute; left: 50%; top: 1440px; width: 270px; transform: translateX(-50%); opacity: 0; }
+
+  #grain { position: absolute; inset: 0; pointer-events: none; opacity: .06; mix-blend-mode: multiply; background: url(grain.png) repeat; }
+  #vignette { position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 80% 65% at 50% 48%, rgba(0,0,0,0) 60%, rgba(90,70,40,.10) 100%); }
+
+  /* preview controls (hidden while rendering) */
+  #controls { position: fixed; left: 0; right: 0; bottom: 0; padding: 10px 16px; display: flex; gap: 12px; align-items: center;
+    background: rgba(20,20,20,.85); color: #eee; font: 14px system-ui, sans-serif; direction: ltr; }
+  #controls input[type=range] { flex: 1; }
+  #controls button { background: #eee; border: 0; border-radius: 6px; padding: 6px 14px; font: inherit; cursor: pointer; }
+  body.render #controls { display: none; }
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- ========== SVG artwork ========== -->
+  <svg class="layer" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="sheen" x1="0" x2="1">
+        <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+        <stop offset=".5" stop-color="#fff" stop-opacity=".16"/>
+        <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+      </linearGradient>
+      <radialGradient id="shadow">
+        <stop offset="0" stop-color="#3a2e1c" stop-opacity=".22"/>
+        <stop offset="1" stop-color="#3a2e1c" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="6" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <!-- reusable leaf, centred on 0,0, ~ 300 tall -->
+      <g id="leafShape">
+        <path class="leafFill" d="M0 150 C-140 85 -135 -80 0 -175 C135 -80 140 85 0 150 Z"/>
+      </g>
+    </defs>
+
+    <!-- S1: the leaf -->
+    <g id="s1leaf" transform="translate(540 820) rotate(22)">
+      <path id="leafFill1" d="M0 150 C-140 85 -135 -80 0 -175 C135 -80 140 85 0 150 Z" fill="var(--leaf)" opacity="0"/>
+      <path class="ln draw" pathLength="1" d="M0 150 C-140 85 -135 -80 0 -175 C135 -80 140 85 0 150 Z"/>
+      <path class="ln draw" pathLength="1" d="M0 225 C0 190 0 170 0 150 C 2 60 3 -40 0 -150"/>
+      <path class="ln draw" pathLength="1" d="M1 80 C-25 60 -55 45 -85 35"/>
+      <path class="ln draw" pathLength="1" d="M1 80 C27 60 57 45 87 35"/>
+      <path class="ln draw" pathLength="1" d="M2 5 C-22 -15 -50 -30 -80 -38"/>
+      <path class="ln draw" pathLength="1" d="M2 5 C24 -15 52 -30 82 -38"/>
+      <path class="ln draw" pathLength="1" d="M1 -70 C-15 -85 -32 -97 -52 -105"/>
+      <path class="ln draw" pathLength="1" d="M1 -70 C17 -85 34 -97 54 -105"/>
+    </g>
+
+    <!-- S3/S4: kettle -->
+    <g id="kettleScene">
+      <ellipse id="kShadow" cx="610" cy="1190" rx="360" ry="34" fill="url(#shadow)" opacity="0"/>
+      <g id="kBase">
+        <path id="baseFill" d="M328 1122 H892 Q920 1122 920 1150 Q920 1178 892 1178 H328 Q300 1178 300 1150 Q300 1122 328 1122 Z" fill="#232324" opacity="0"/>
+        <path class="ln draw" pathLength="1" d="M328 1122 H892 Q920 1122 920 1150 Q920 1178 892 1178 H328 Q300 1178 300 1150 Q300 1122 328 1122 Z"/>
+        <path id="dialFill" d="M790 1122 V1090 Q790 1076 804 1076 H876 Q890 1076 890 1090 V1122 Z" fill="#2a2a2b" opacity="0"/>
+        <path class="ln draw" pathLength="1" d="M790 1122 V1090 Q790 1076 804 1076 H876 Q890 1076 890 1090 V1122"/>
+        <rect id="dialScreen" x="806" y="1087" width="68" height="26" rx="6" fill="#0d0d0d" opacity="0"/>
+        <text id="dialTxt" x="840" y="1108" text-anchor="middle" font-family="Plex" font-weight="400" font-size="21" fill="#9fe08a" filter="url(#glow)" opacity="0" direction="ltr">77°</text>
+        <circle id="powerBtn" cx="868" cy="1150" r="9" fill="none" stroke="#8d8d8d" stroke-width="2.5" opacity="0"/>
+      </g>
+      <g id="kTop">
+        <!-- spout (under the body) -->
+        <path id="spoutFill" d="M372 1050 C300 1035 255 990 245 890 C236 800 250 720 232 668 C220 632 195 612 168 614 C150 616 138 628 128 646" fill="none" stroke="var(--matte)" stroke-width="16" stroke-linecap="round" opacity="0"/>
+        <path class="ln draw" pathLength="1" d="M372 1050 C300 1035 255 990 245 890 C236 800 250 720 232 668 C220 632 195 612 168 614 C150 616 138 628 128 646"/>
+        <!-- handle -->
+        <path id="handleFill" d="M628 716 H798 Q822 716 826 740 L870 1000 Q874 1032 846 1032 H838 Q814 1032 811 1008 L775 778 H640 Z" fill="var(--matte)" opacity="0"/>
+        <path class="ln draw" pathLength="1" d="M650 716 H798 Q822 716 826 740 L870 1000 Q874 1032 846 1032 H838 Q814 1032 811 1008 L775 778 H664"/>
+        <!-- body -->
+        <path id="bodyFill" d="M436 700 H644 L737 1090 Q744 1120 714 1120 H366 Q336 1120 343 1090 Z" fill="var(--matte)" opacity="0"/>
+        <path id="bodySheen" d="M470 712 H520 L470 1108 H400 Z" fill="url(#sheen)" opacity="0"/>
+        <path class="ln draw" pathLength="1" d="M436 700 H644 L737 1090 Q744 1120 714 1120 H366 Q336 1120 343 1090 Z"/>
+        <!-- lid + knob -->
+        <path id="lidFill" d="M426 700 V686 Q426 676 436 676 H644 Q654 676 654 686 V700 Z M524 676 V650 H556 V676 Z M488 652 Q476 652 476 642 Q476 628 492 628 H588 Q604 628 604 642 Q604 652 592 652 Z" fill="var(--matte)" opacity="0"/>
+        <path class="ln draw" pathLength="1" d="M426 700 V686 Q426 676 436 676 H644 Q654 676 654 686 V700"/>
+        <path class="ln draw" pathLength="1" d="M524 676 V652 M556 676 V652"/>
+        <path class="ln draw" pathLength="1" d="M488 652 Q476 652 476 642 Q476 628 492 628 H588 Q604 628 604 642 Q604 652 592 652 Z"/>
+        <path id="knobRim" d="M480 646 H600" stroke="#b9b9b9" stroke-width="3" opacity="0"/>
+        <!-- logo on body -->
+        <g id="bodyLogo" transform="translate(540 955)" opacity="0">
+          <rect x="-30" y="-34" width="60" height="56" rx="12" fill="none" stroke="#f2f2f2" stroke-width="4"/>
+          <g transform="translate(0 -6) rotate(24) scale(.12)"><path d="M0 150 C-140 85 -135 -80 0 -175 C135 -80 140 85 0 150 Z" fill="#f2f2f2"/></g>
+          <text y="48" text-anchor="middle" font-family="Plex" font-weight="600" font-size="17" fill="#f2f2f2" letter-spacing="1" direction="ltr">MATET</text>
+        </g>
+      </g>
+      <!-- leader line from callout to dial -->
+      <path id="leader" class="draw" pathLength="1" d="M900 566 V1082 Q900 1099 892 1099" fill="none" stroke="var(--muted)" stroke-width="3" stroke-linecap="round"/>
+      <circle id="leaderDot" cx="892" cy="1099" r="6" fill="var(--green)" opacity="0"/>
+    </g>
+
+    <!-- S4: gourd, stream, steam -->
+    <g id="pourScene">
+      <path id="stream" class="draw" pathLength="1" d="" fill="none" stroke="#8cb7c9" stroke-width="7" stroke-linecap="round"/>
+      <g id="gourd" transform="translate(0 -190)">
+        <path id="gourdFill" d="M250 1400 Q236 1440 232 1480 Q226 1560 290 1600 Q340 1628 390 1600 Q454 1560 448 1480 Q444 1440 430 1400 Z" fill="#8a5a36" opacity="0"/>
+        <path id="gourdBand" d="M244 1432 Q340 1452 436 1432" fill="none" stroke="#6d4428" stroke-width="10" opacity="0"/>
+        <path class="ln draw" pathLength="1" d="M250 1400 Q236 1440 232 1480 Q226 1560 290 1600 Q340 1628 390 1600 Q454 1560 448 1480 Q444 1440 430 1400"/>
+        <ellipse id="yerba" cx="340" cy="1400" rx="92" ry="20" fill="#7d9b3a" opacity="0"/>
+        <path class="ln draw" pathLength="1" d="M248 1400 Q340 1428 432 1400 Q340 1374 248 1400 Z"/>
+        <path id="bombilla" class="draw" pathLength="1" d="M372 1404 L430 1270 Q434 1260 444 1262" fill="none" stroke="#9a9a98" stroke-width="10" stroke-linecap="round"/>
+        <path class="ln draw" pathLength="1" d="M240 1640 H440" style="stroke: var(--soft)"/>
+      </g>
+      <g id="steam" transform="translate(0 -190)"><g fill="none" stroke="var(--muted)" stroke-width="4" stroke-linecap="round">
+        <path class="steam" d="M305 1370 C285 1330 325 1300 305 1260 C285 1220 325 1190 305 1150"/>
+        <path class="steam" d="M345 1360 C325 1320 365 1290 345 1250 C325 1210 365 1180 345 1140"/>
+        <path class="steam" d="M385 1370 C365 1330 405 1300 385 1260 C365 1220 405 1190 385 1150"/>
+      </g></g>
+      <g id="tempTag" opacity="0">
+        <rect x="-62" y="-32" width="124" height="64" rx="32" fill="var(--cream)" stroke="var(--green)" stroke-width="3"/>
+        <text y="13" text-anchor="middle" font-family="Plex" font-weight="500" font-size="36" fill="var(--green)" direction="ltr">77°</text>
+      </g>
+    </g>
+
+    <!-- S2 / S3: temperature ring (becomes callout) -->
+    <g id="ring" transform="translate(540 860)">
+      <circle id="ringBg" r="0" fill="var(--cream)" opacity="0"/>
+      <g id="ticks"></g>
+      <circle id="ringTrack" class="draw" pathLength="1" r="250" fill="none" stroke="var(--soft)" stroke-width="10" transform="rotate(-90)"/>
+      <circle id="ringArc" pathLength="1" r="250" fill="none" stroke="var(--clay)" stroke-width="12" stroke-linecap="round" transform="rotate(-90)" style="stroke-dasharray: 0 1"/>
+      <text id="ringNum" y="68" text-anchor="middle" font-family="Plex" font-weight="300" font-size="200" fill="var(--clay)" direction="ltr" opacity="0">100°</text>
+      <path id="strike" class="draw" pathLength="1" d="M-175 -4 C-90 -14 60 -22 185 -34" fill="none" stroke="var(--ink)" stroke-width="9" stroke-linecap="round"/>
+    </g>
+
+    <!-- S5: feature icons -->
+    <g id="feats">
+      <g class="ficon" transform="translate(900 740)">
+        <circle class="ln draw" pathLength="1" r="80" style="stroke: var(--soft); stroke-width: 4"/>
+        <path class="ln draw" pathLength="1" d="M-11 16 V-38 A11 11 0 0 1 11 -38 V16 A24 24 0 1 1 -11 16 Z"/>
+        <path class="draw" pathLength="1" d="M0 34 V-18" fill="none" stroke="var(--green)" stroke-width="9" stroke-linecap="round"/>
+        <circle class="gfill" cy="36" r="13" fill="var(--green)" opacity="0"/>
+        <path class="ln draw" pathLength="1" d="M22 -32 H32 M22 -18 H32 M22 -4 H32" style="stroke-width: 4"/>
+      </g>
+      <g class="ficon" transform="translate(900 1010)">
+        <circle class="ln draw" pathLength="1" r="80" style="stroke: var(--soft); stroke-width: 4"/>
+        <circle class="draw" pathLength="1" cy="-18" r="16" fill="none" stroke="var(--green)" stroke-width="5"/>
+        <path class="draw" pathLength="1" d="M0 -46 V-40 M0 4 V10 M-28 -18 H-22 M22 -18 H28 M-20 -38 L-16 -34 M16 -2 L20 2 M20 -38 L16 -34 M-16 -2 L-20 2" fill="none" stroke="var(--green)" stroke-width="5" stroke-linecap="round"/>
+        <path class="ln draw" pathLength="1" d="M-38 46 L38 46 L30 18 L-30 18 Z M-34 32 H34 M0 18 V46 M-16 18 L-19 46 M16 18 L19 46" style="stroke-width: 4"/>
+      </g>
+      <g class="ficon" transform="translate(900 1280)">
+        <circle class="ln draw" pathLength="1" r="80" style="stroke: var(--soft); stroke-width: 4"/>
+        <path class="ln draw" pathLength="1" d="M38 44 C30 0 18 -26 -6 -34 C-24 -40 -38 -30 -40 -16" style="stroke-width: 8"/>
+        <circle class="gfill" cx="-40" cy="4" r="5" fill="#8cb7c9" opacity="0"/>
+        <circle class="gfill" cx="-40" cy="22" r="5" fill="#8cb7c9" opacity="0"/>
+        <circle class="gfill" cx="-40" cy="40" r="5" fill="#8cb7c9" opacity="0"/>
+      </g>
+    </g>
+
+    <!-- S6: MATET logo tile -->
+    <g id="logoTile" transform="translate(540 560)" opacity="0">
+      <rect x="-160" y="-190" width="320" height="370" rx="46" fill="#151515"/>
+      <rect id="logoInner" class="draw" pathLength="1" x="-95" y="-150" width="190" height="170" rx="34" fill="none" stroke="#fff" stroke-width="13"/>
+      <g transform="translate(0 -65) rotate(26) scale(.36)">
+        <path id="logoLeafFill" d="M0 150 C-140 85 -135 -80 0 -175 C135 -80 140 85 0 150 Z" fill="var(--leaf)" opacity="0"/>
+        <path class="draw logoLeafLn" pathLength="1" d="M0 150 C-140 85 -135 -80 0 -175 C135 -80 140 85 0 150 Z" fill="none" stroke="#fff" stroke-width="12"/>
+        <path class="draw logoLeafLn" pathLength="1" d="M0 215 V150 C2 60 3 -40 0 -150" fill="none" stroke="#1f3d1b" stroke-width="12" stroke-linecap="round"/>
+      </g>
+      <text id="logoAr" y="92" text-anchor="middle" font-family="Plex" font-weight="500" font-size="54" fill="#fff" opacity="0">متيت</text>
+      <text id="logoEn" y="152" text-anchor="middle" font-family="Plex" font-weight="600" font-size="54" letter-spacing="3" fill="#fff" direction="ltr" opacity="0">MATET</text>
+    </g>
+  </svg>
+
+  <!-- ========== Text layers ========== -->
+  <div id="t1" class="txt serif h1" style="top: 1150px">السرّ ليس في الأوراق…</div>
+  <div id="t2a" class="txt serif h2" style="top: 1200px; color: var(--clay)">ولا في الماء المغلي…</div>
+  <div id="t2b" class="txt serif h1" style="top: 1180px; color: var(--green)">بل في الدرجة المثالية</div>
+  <div id="t3a" class="txt serif h1" style="top: 1270px">إبريق متة ذكي</div>
+  <div id="t3b" class="txt body" style="top: 1410px">يثبّت الحرارة التي تختارها… طوال الوقت</div>
+  <div id="t4a" class="txt serif h2" style="top: 1500px">من أول صبّة… حتى الأخيرة</div>
+  <div id="t5h" class="txt serif h1" style="top: 420px">لماذا متيت؟</div>
+
+  <div class="feat" style="top: 660px"><b>حرارة ثابتة بدقة</b><span>تحافظ على الدرجة التي تختارها</span></div>
+  <div class="feat" style="top: 930px"><b>تعمل على الطاقة الشمسية</b><span>بقدرة 500 واط فقط</span></div>
+  <div class="feat" style="top: 1200px"><b>عنق رفيع لصبّ دقيق</b><span>تصميم أنيق بمقبض مريح</span></div>
+
+  <div id="t6a" class="txt serif h1" style="top: 800px">إبريق متة ذكي</div>
+  <div id="t6b" class="txt serif h2" style="top: 935px; color: var(--green); font-weight: 500">متة مثالية في كل مرة</div>
+  <div id="cta">اطلب الآن</div>
+  <div id="phone"><svg viewBox="0 0 32 32"><path fill="#25D366" d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 6.9L3 29l6.5-2c1.9 1 4.1 1.6 6.5 1.6 7.2 0 13-5.7 13-12.8S23.2 3 16 3z"/><path fill="#fff" d="M22.6 19.2c-.4-.2-2.1-1-2.4-1.1-.3-.1-.6-.2-.8.2-.2.4-.9 1.1-1.1 1.3-.2.2-.4.3-.8.1-.4-.2-1.5-.6-2.8-1.8-1-.9-1.7-2-1.9-2.4-.2-.4 0-.6.2-.8l.6-.7c.2-.2.2-.4.4-.6.1-.2 0-.5 0-.7l-1.1-2.6c-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-1 .5-.3.4-1.3 1.3-1.3 3.1s1.3 3.6 1.5 3.9c.2.2 2.6 4 6.3 5.6 3.1 1.2 3.7 1 4.4.9.7-.1 2.1-.9 2.4-1.7.3-.8.3-1.5.2-1.7 0-.2-.3-.3-.7-.5z"/></svg>+963 931 884 610</div>
+  <img id="bsc" src="bsc-logo.png" alt="">
+
+  <div id="grain"></div>
+  <div id="vignette"></div>
+</div>
+
+<div id="controls">
+  <button id="play">Pause</button>
+  <input id="scrub" type="range" min="0" max="1000" value="0">
+  <span id="clock">0.00s</span>
+</div>
+
+<script>
+const DURATION = 26.5;
+const FPS = 30;
+
+// ---------- helpers ----------
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, k) => a + (b - a) * k;
+const E = {
+  lin: x => x,
+  out3: x => 1 - Math.pow(1 - x, 3),
+  out5: x => 1 - Math.pow(1 - x, 5),
+  in2: x => x * x,
+  inOut3: x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2,
+  outBack: x => { const c1 = 1.5, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); },
+};
+const mixHex = (a, b, k) => {
+  const pa = a.match(/\w\w/g).map(h => parseInt(h, 16)), pb = b.match(/\w\w/g).map(h => parseInt(h, 16));
+  return '#' + pa.map((v, i) => Math.round(lerp(v, pb[i], k)).toString(16).padStart(2, '0')).join('');
+};
+
+function draw(el, k) {
+  el.style.strokeDashoffset = 1 - k;
+  el.style.opacity = k > 0.001 ? 1 : 0;
+}
+// draw a list of elements in sequence across [a, b]
+function drawSeq(els, t, a, b, overlap = 0.5, ease = E.inOut3) {
+  const n = els.length, span = (b - a) / (n - (n - 1) * overlap);
+  els.forEach((el, i) => {
+    const s = a + i * span * (1 - overlap);
+    draw(el, ease(prog(t, s, s + span)));
+  });
+}
+function fade(el, t, a, b, ease = E.out3) { const k = ease(prog(t, a, b)); el.style.opacity = k; return k; }
+function fadeInOut(el, t, a, b, c, d, dy = 0) {
+  const k = E.out3(prog(t, a, b)) * (1 - E.in2(prog(t, c, d)));
+  el.style.opacity = k;
+  if (dy) el.style.transform = `translateY(${(1 - E.out3(prog(t, a, b))) * dy - E.in2(prog(t, c, d)) * dy}px)`;
+  return k;
+}
+
+// word-by-word reveal (Arabic words stay shaped because we split on spaces)
+const wordCache = new Map();
+function words(el) {
+  if (!wordCache.has(el)) {
+    el.innerHTML = el.textContent.trim().split(/\s+/).map(w => `<span class="w">${w}</span>`).join(' ');
+    wordCache.set(el, [...el.querySelectorAll('.w')]);
+  }
+  return wordCache.get(el);
+}
+function reveal(el, t, start, end = 1e9, stagger = 0.13, dur = 0.7) {
+  const out = E.in2(prog(t, end, end + 0.45));
+  words(el).forEach((w, i) => {
+    const k = E.out3(prog(t, start + i * stagger, start + i * stagger + dur));
+    w.style.opacity = k * (1 - out);
+    w.style.transform = `translateY(${(1 - k) * 22 - out * 14}px)`;
+    w.style.filter = `blur(${(1 - k) * 8 + out * 4}px)`;
+  });
+}
+
+// ---------- one-time setup ----------
+const ticks = $('#ticks');
+for (let i = 0; i < 60; i++) {
+  const a = i / 60 * Math.PI * 2 - Math.PI / 2, long = i % 5 === 0;
+  const r1 = 282, r2 = long ? 306 : 296;
+  const l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  l.setAttribute('x1', (Math.cos(a) * r1).toFixed(2)); l.setAttribute('y1', (Math.sin(a) * r1).toFixed(2));
+  l.setAttribute('x2', (Math.cos(a) * r2).toFixed(2)); l.setAttribute('y2', (Math.sin(a) * r2).toFixed(2));
+  l.setAttribute('stroke', long ? '#1B1A18' : '#B9B09F'); l.setAttribute('stroke-width', long ? 4 : 3);
+  l.setAttribute('stroke-linecap', 'round'); l.style.opacity = 0;
+  ticks.appendChild(l);
+}
+const tickEls = [...ticks.children];
+
+const leafLines = $$('#s1leaf .ln');
+const baseLines = $$('#kBase .ln');
+const topLines = $$('#kTop .ln');
+const gourdLines = $$('#gourd .ln');
+const steamEls = $$('.steam');
+const featEls = $$('.feat');
+const ficons = $$('.ficon');
+
+// kettle "pour" camera: rotate about body, scale, and put spout tip at a chosen spot
+const PIVOT = { x: 560, y: 900 }, TIP = { x: 128, y: 646 };
+function pourTransform(k) {
+  const a = lerp(0, -32, k), s = lerp(1, 1.08, k);
+  const r = a * Math.PI / 180;
+  const dx = TIP.x - PIVOT.x, dy = TIP.y - PIVOT.y;
+  const tipRot = { x: PIVOT.x + s * (dx * Math.cos(r) - dy * Math.sin(r)), y: PIVOT.y + s * (dx * Math.sin(r) + dy * Math.cos(r)) };
+  const want = { x: lerp(TIP.x, 318, k), y: lerp(TIP.y, 830, k) };
+  return { str: `translate(${want.x - tipRot.x} ${want.y - tipRot.y}) translate(${PIVOT.x} ${PIVOT.y}) rotate(${a}) scale(${s}) translate(${-PIVOT.x} ${-PIVOT.y})`, tip: want };
+}
+
+// ---------- the timeline ----------
+function render(t) {
+  // ===== S1 — 0.0 → 4.0 : "The secret isn't in the leaves…"
+  const s1out = E.in2(prog(t, 3.4, 4.0));
+  drawSeq(leafLines, t, 0.25, 2.0, 0.55);
+  const leafFill = E.out3(prog(t, 1.7, 2.4));
+  $('#leafFill1').style.opacity = leafFill * .95;
+  const sway = Math.sin(t * 1.3) * 3;
+  $('#s1leaf').setAttribute('transform', `translate(540 ${820 - s1out * 120}) rotate(${22 + sway}) scale(${1 - s1out * .15})`);
+  $('#s1leaf').style.opacity = 1 - s1out;
+  reveal($('#t1'), t, 1.3, 3.45);
+
+  // ===== S2 — 4.0 → 9.2 : 100° → 77°
+  const ring = $('#ring');
+  draw($('#ringTrack'), E.inOut3(prog(t, 4.0, 4.9)));
+  tickEls.forEach((l, i) => {
+    const s = 4.2 + i * 0.012;
+    l.style.opacity = E.out3(prog(t, s, s + 0.3)) * (1 - prog(t, 9.2, 9.6));
+  });
+  // arc: fills to 100% then retreats to 77%
+  const fillUp = E.inOut3(prog(t, 4.4, 5.4));
+  const cool = E.inOut3(prog(t, 6.4, 7.7));
+  const temp = Math.round(lerp(100, 77, cool));
+  const arcLen = fillUp * lerp(1, .77, cool);
+  const arcCol = mixHex('C8613F', '3E7A38', cool);
+  const arc = $('#ringArc');
+  arc.style.strokeDasharray = `${arcLen} 1`;
+  arc.style.opacity = t > 4.4 ? 1 : 0;
+  arc.setAttribute('stroke', arcCol);
+  const num = $('#ringNum');
+  num.textContent = temp + '°';
+  num.setAttribute('fill', arcCol);
+  const numIn = E.out3(prog(t, 4.5, 5.2));
+  num.style.opacity = numIn;
+  draw($('#strike'), E.out5(prog(t, 5.75, 6.1)));
+  $('#strike').style.opacity = prog(t, 5.75, 5.76) * (1 - prog(t, 6.3, 6.5));
+  reveal($('#t2a'), t, 4.7, 6.3, .12, .6);
+  reveal($('#t2b'), t, 7.35, 9.0, .15, .7);
+
+  // settle pulse on 77°
+  const pulse = Math.sin(prog(t, 7.6, 8.2) * Math.PI) * .03;
+
+  // ===== S3 — 9.2 → 14.2 : ring → callout, kettle draws
+  const toCallout = E.inOut3(prog(t, 9.2, 10.2));
+  const rs = lerp(1, .34, toCallout) * (1 + pulse);
+  const rx = lerp(540, 900, toCallout), ry = lerp(860 + numIn * 0 , 470, toCallout);
+  const s4fade = E.in2(prog(t, 14.2, 14.6));
+  ring.setAttribute('transform', `translate(${rx} ${ry}) scale(${rs})`);
+  ring.style.opacity = (t < 4 ? 0 : 1) * (1 - s4fade);
+  $('#ringBg').setAttribute('r', 250); $('#ringBg').style.opacity = toCallout;
+
+  const kIn = t > 9.4;
+  $('#kettleScene').style.display = kIn ? '' : 'none';
+  drawSeq(baseLines, t, 9.5, 10.4, .3);
+  drawSeq(topLines, t, 9.8, 11.5, .55);
+  const kFill = E.out3(prog(t, 11.3, 12.1));
+  ['#bodyFill', '#handleFill', '#lidFill', '#baseFill', '#dialFill', '#spoutFill'].forEach(s => $(s).style.opacity = kFill);
+  $('#bodySheen').style.opacity = kFill;
+  $('#knobRim').style.opacity = kFill;
+  $('#kShadow').style.opacity = kFill;
+  $('#dialScreen').style.opacity = kFill;
+  $('#powerBtn').style.opacity = kFill;
+  fade($('#bodyLogo'), t, 11.9, 12.4);
+  draw($('#leader'), E.inOut3(prog(t, 12.1, 12.7)));
+  const ledOn = prog(t, 12.65, 12.7);
+  $('#leaderDot').style.opacity = ledOn;
+  $('#dialTxt').style.opacity = ledOn * (0.85 + 0.15 * Math.sin(t * 6));
+  reveal($('#t3a'), t, 12.2, 14.1);
+  reveal($('#t3b'), t, 12.8, 14.1, .08, .6);
+
+  // ===== S4 — 14.2 → 18.6 : the pour
+  const cam = E.inOut3(prog(t, 14.2, 15.4));
+  const P = pourTransform(cam);
+  $('#kTop').setAttribute('transform', P.str);
+  const baseDrop = E.in2(prog(t, 14.2, 14.9));
+  $('#kBase').setAttribute('transform', `translate(0 ${baseDrop * 260})`);
+  $('#kBase').style.opacity = 1 - baseDrop;
+  $('#kShadow').style.opacity = kFill * (1 - baseDrop);
+  $('#leader').style.opacity = t > 12.1 ? 1 - s4fade : 0;
+  $('#leaderDot').style.opacity = ledOn * (1 - s4fade);
+
+  const pourOn = t > 14.6;
+  $('#pourScene').style.display = pourOn ? '' : 'none';
+  drawSeq(gourdLines, t, 14.7, 15.5, .4);
+  const gFill = E.out3(prog(t, 15.3, 15.9));
+  $('#gourdFill').style.opacity = gFill;
+  $('#gourdBand').style.opacity = gFill;
+  $('#yerba').style.opacity = gFill;
+  draw($('#bombilla'), E.out3(prog(t, 15.4, 15.9)));
+
+  // stream from spout tip to the gourd; gently arcs outwards
+  const tip = P.tip;
+  const flowIn = E.out3(prog(t, 15.45, 15.95)), flowOut = E.in2(prog(t, 17.9, 18.3));
+  const endY = 1202, midX = tip.x + 8 + Math.sin(t * 9) * 1.5;
+  const stream = $('#stream');
+  stream.setAttribute('d', `M${tip.x} ${tip.y + 6} C${tip.x - 4} ${tip.y + 80} ${midX} ${tip.y + 180} ${midX + 2} ${endY}`);
+  stream.style.strokeDasharray = '1 1';
+  stream.style.strokeDashoffset = 1 - flowIn;
+  stream.style.opacity = flowIn > 0 ? 1 - flowOut : 0;
+  stream.setAttribute('stroke-width', 7 * (1 - flowOut * .6));
+
+  // steam: rising, looping dashes
+  steamEls.forEach((s, i) => {
+    const on = E.out3(prog(t, 16.0 + i * .25, 16.6 + i * .25));
+    const cyc = ((t * .45 + i * .33) % 1);
+    s.setAttribute('pathLength', 1);
+    s.style.strokeDasharray = '.35 .65';
+    s.style.strokeDashoffset = -cyc + .35;
+    s.style.opacity = on * .75 * (1 - E.in2(prog(t, 18.3, 18.7)));
+    s.setAttribute('transform', `translate(0 ${-cyc * 20})`);
+  });
+
+  const tag = $('#tempTag');
+  const tagK = E.outBack(prog(t, 16.2, 16.75));
+  tag.setAttribute('transform', `translate(${tip.x - 150} ${tip.y + 170 + Math.sin(t * 2) * 5}) scale(${Math.max(0, tagK)})`);
+  tag.style.opacity = prog(t, 16.2, 16.3) * (1 - E.in2(prog(t, 18.2, 18.6)));
+  reveal($('#t4a'), t, 16.3, 18.25, .14, .7);
+
+  const s4out = E.in2(prog(t, 18.2, 18.7));
+  $('#kTop').style.opacity = 1 - s4out;
+  $('#gourd').style.opacity = 1 - s4out;
+
+  // ===== S5 — 18.6 → 21.6 : three reasons
+  const s5out = E.in2(prog(t, 21.3, 21.75));
+  reveal($('#t5h'), t, 18.7, 21.3);
+  ficons.forEach((g, i) => {
+    const a = 18.9 + i * .38;
+    const els = [...g.querySelectorAll('.draw')];
+    drawSeq(els, t, a, a + .9, .45);
+    g.querySelectorAll('.gfill').forEach((gf, j) => gf.style.opacity = E.out3(prog(t, a + .6 + j * .12, a + .9 + j * .12)));
+    g.style.opacity = 1 - s5out;
+  });
+  featEls.forEach((f, i) => {
+    const a = 19.05 + i * .38, k = E.out3(prog(t, a, a + .6));
+    f.style.opacity = k * (1 - s5out);
+    f.style.transform = `translateX(${(1 - k) * 40}px)`;
+    f.style.filter = `blur(${(1 - k) * 6}px)`;
+  });
+
+  // ===== S6 — 21.6 → end : brand + call to action
+  const tile = $('#logoTile');
+  const tk = E.outBack(prog(t, 21.7, 22.3));
+  tile.setAttribute('transform', `translate(540 560) scale(${lerp(.6, 1, Math.max(0, tk))})`);
+  tile.style.opacity = E.out3(prog(t, 21.7, 22.0));
+  draw($('#logoInner'), E.inOut3(prog(t, 21.95, 22.5)));
+  $$('.logoLeafLn').forEach((l, i) => draw(l, E.inOut3(prog(t, 22.15 + i * .15, 22.7 + i * .15))));
+  $('#logoLeafFill').style.opacity = E.out3(prog(t, 22.6, 23.0));
+  fade($('#logoAr'), t, 22.5, 22.9);
+  fade($('#logoEn'), t, 22.65, 23.05);
+  reveal($('#t6a'), t, 22.7);
+  reveal($('#t6b'), t, 23.1);
+  const ctaK = E.outBack(prog(t, 23.6, 24.1));
+  $('#cta').style.opacity = prog(t, 23.6, 23.75);
+  $('#cta').style.transform = `translateX(-50%) scale(${lerp(.8, 1, Math.max(0, ctaK))})`;
+  fadeInOut($('#phone'), t, 23.9, 24.4, 99, 100, 16);
+  fadeInOut($('#bsc'), t, 24.2, 24.8, 99, 100, 16);
+  // subtle "breathing" on the CTA near the end
+  if (t > 24.6) $('#cta').style.transform = `translateX(-50%) scale(${1 + Math.sin((t - 24.6) * 3) * .015})`;
+}
+
+// ---------- preview / render harness ----------
+const RENDER = new URLSearchParams(location.search).has('render');
+if (RENDER) document.body.classList.add('render');
+function fit() {
+  const st = $('#stage');
+  if (RENDER) { st.style.transform = 'none'; return; }
+  const avail = { w: innerWidth, h: innerHeight - 52 };
+  const s = Math.min(avail.w / 1080, avail.h / 1920);
+  st.style.transform = `translate(${(avail.w - 1080 * s) / 2}px, 0) scale(${s})`;
+}
+addEventListener('resize', fit); fit();
+
+window.render = render;
+window.DURATION = DURATION;
+window.FPS = FPS;
+
+Promise.all([...document.fonts].map(f => f.load())).then(() => document.fonts.ready).then(() => {
+  render(0);
+  window.READY = true;
+  if (RENDER) return;
+  let playing = true, t0 = performance.now(), cur = 0;
+  const scrub = $('#scrub'), clock = $('#clock'), btn = $('#play');
+  btn.onclick = () => { playing = !playing; btn.textContent = playing ? 'Pause' : 'Play'; t0 = performance.now() - cur * 1000; };
+  scrub.oninput = () => { cur = scrub.value / 1000 * DURATION; t0 = performance.now() - cur * 1000; render(cur); clock.textContent = cur.toFixed(2) + 's'; };
+  (function loop(now) {
+    if (playing) {
+      cur = ((now - t0) / 1000) % DURATION;
+      render(cur); scrub.value = cur / DURATION * 1000; clock.textContent = cur.toFixed(2) + 's';
+    }
+    requestAnimationFrame(loop);
+  })(performance.now());
+});
+</script>
+</body>
+</html>
