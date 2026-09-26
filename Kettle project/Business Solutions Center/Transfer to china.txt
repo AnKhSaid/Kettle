@@ -1,0 +1,3 @@
+Alinma SWIFT : 3.758*amount + 57 (PAY IN USD)
+Alibaba Wire : same as above but with insurance (PAY IN USD)
+Alibaba credit (1 + 2.95% + 2.65%)*3.758*amount (PAY IN USD)
