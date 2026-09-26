@@ -191,11 +191,13 @@ export function create(canvas) {
   let logo = null;
   function buildLogo() { // must run after fonts load
     if (logo) pot.remove(logo);
-    body.updateMatrixWorld(true);
-    const pos = new THREE.Vector3(0, 170, 170), ori = new THREE.Euler(-Math.atan2(95, 420), 0, 0);
-    logo = new THREE.Mesh(new DecalGeometry(body, pos, ori, new THREE.Vector3(84, 105, 120)), logoMat);
-    // decal is computed in world space; convert to pot space
-    pot.updateMatrixWorld(true);
+    // DecalGeometry works in world space: refresh every ancestor's matrix first (a stale
+    // parent matrix here used to shift the logo off the body), then convert to pot space.
+    scene.updateMatrixWorld(true);
+    const pos = new THREE.Vector3(0, 175, 0).applyMatrix4(body.matrixWorld);
+    pos.z = 250;   // in front of the body; the decal box projects back onto the surface
+    const ori = new THREE.Euler(-Math.atan2(95, 420), 0, 0);
+    logo = new THREE.Mesh(new DecalGeometry(body, pos, ori, new THREE.Vector3(84, 105, 240)), logoMat);
     logo.geometry.applyMatrix4(new THREE.Matrix4().copy(pot.matrixWorld).invert());
     pot.add(logo);
   }

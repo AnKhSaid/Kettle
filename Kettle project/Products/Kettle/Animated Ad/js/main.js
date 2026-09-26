@@ -74,6 +74,10 @@ function setOdo(v) {
 const ripples = [0, 1, 2].map(() => svg('ellipse', { cx: 540, cy: 1010, rx: 0, ry: 0, opacity: 0 }, $('#ripples')));
 const R = rand(7);
 const splash = Array.from({ length: 10 }, (_, i) => ({ el: svg('circle', { r: 4 + R() * 5, opacity: 0 }, $('#splash')), vx: (R() - .5) * 520, vy: -380 - R() * 420 }));
+const motes = Array.from({ length: 28 }, (_, i) => ({
+  el: svg('ellipse', { rx: 2 + R() * 5, ry: 1.2 + R() * 2.5, opacity: 0 }, $('#motes')),
+  x: 60 + R() * 960, y: 300 + R() * 1400, v: 18 + R() * 40, ph: R() * 6.28, a: R() * 180,
+}));
 const bubbles = Array.from({ length: 110 }, (_, i) => ({
   el: svg('circle', { r: 0, fill: i % 3 ? 'none' : 'rgba(242,237,227,.25)', stroke: 'var(--cream)', 'stroke-width': 3 + (i % 3) }, $('#bubbles')),
   x: R() * 1080, r: 6 + Math.pow(R(), 2) * 38, v: .6 + R() * .9, off: R() * 2200, ph: R() * 6.28,
@@ -249,7 +253,7 @@ at(11.2, K.rig.position, { y: -300, duration: 1.6, ease: 'power2.inOut' });
 at(12.8, K.rig.rotation, { y: .3, duration: 1.6, ease: 'sine.inOut' });
 wordSlam(wE1, 11.2, .1);
 tl.fromTo('#tE2', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .5 }, 11.6);
-[12.0, 12.45, 12.9, 13.35].forEach((t0, i) => {
+[12.0, 12.3, 12.6, 12.9].forEach((t0, i) => {
   tl.to(S.call, { [i]: 1, duration: .5, ease: 'back.out(2)' }, t0);
   tl.to(S.call, { [i]: 0, duration: .25, ease: 'power2.in' }, 14.05 + i * .04);
 });
@@ -293,29 +297,29 @@ set(21.45, S, { ledOn: 0, led: 28 });
 at(21.4, K.rig.scale, { x: 2.1, y: 2.1, z: 2.1, duration: .6, ease: 'power3.inOut' });
 at(21.4, K.rig.position, { x: -520, y: -420, duration: .6, ease: 'power3.inOut' });
 at(21.4, K.rig.rotation, { y: -.15, x: .55, duration: .6, ease: 'power3.inOut' });
-at(21.85, S, { press: 1, duration: .6, ease: 'power2.out' });
+at(21.9, S, { press: 1, duration: .6, ease: 'power2.out' });
 at(21.95, S, { ledOn: 1, duration: .15 });
-at(22.45, K.dial.rotation, { y: -2.4, duration: .7, ease: 'power2.inOut' });
-at(22.45, S, { led: 77, turn: 1, duration: .7, ease: 'power2.inOut' });
-at(23.2, K.rig.scale, { x: .95, y: .95, z: .95, duration: .8, ease: 'power3.inOut' });
-at(23.2, K.rig.position, { x: 12, y: -290, duration: .8, ease: 'power3.inOut' });
-at(23.2, K.rig.rotation, { y: -.45, x: .1, duration: .8, ease: 'power3.inOut' });
-at(23.35, S, { steamTip: 1, duration: .5 });
+at(22.5, K.dial.rotation, { y: -2.4, duration: .6, ease: 'power2.inOut' });
+at(22.5, S, { led: 77, turn: 1, duration: .6, ease: 'power2.inOut' });
+at(23.1, K.rig.scale, { x: .95, y: .95, z: .95, duration: .9, ease: 'power3.inOut' });
+at(23.1, K.rig.position, { x: 12, y: -290, duration: .9, ease: 'power3.inOut' });
+at(23.1, K.rig.rotation, { y: -.45, x: .1, duration: .9, ease: 'power3.inOut' });
+at(23.25, S, { steamTip: 1, duration: .5 });
 at(23.9, S, { steamTip: 0, duration: .5 });
 
 // I — 24.0 → 30.0 : brand + call to action
-at(24.0, K.rig.rotation, { y: .45, duration: 6, ease: 'sine.inOut' });
+at(24.0, K.rig.rotation, { y: 0, duration: 4.2, ease: 'power3.out' });
 at(24.0, S, { leaf2: 1, duration: .9, ease: 'power2.inOut' });
 tl.fromTo('#logoTile', { opacity: 0, scale: .3, transformOrigin: '50% 50%' }, { opacity: 1, scale: 1, duration: .5, ease: 'back.out(1.8)' }, 24.6);
 at(24.75, '#tileInner', { drawSVG: '0% 100%', duration: .5, ease: 'power2.inOut' });
 tl.fromTo('#tileAr, #tileEn', { opacity: 0 }, { opacity: 1, duration: .3, stagger: .1 }, 25.0);
 wordSlam(wI1, 25.05, .12);
 tl.fromTo('#tI2', { opacity: 0, '--p': 0 }, { opacity: 1, '--p': 112, duration: .9, ease: 'power1.inOut' }, 25.5);
-tl.fromTo('#cta', { opacity: 0, scale: .6, xPercent: -50, x: 0 }, { opacity: 1, scale: 1, xPercent: -50, duration: .55, ease: 'back.out(2)' }, 26.1);
-tl.fromTo('#phone', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .45 }, 26.4);
-tl.fromTo('#bsc', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .45 }, 26.7);
-at(26.8, S, { shine: 1, duration: .8, ease: 'power1.inOut' });
-at(28.3, S, { shine: 2, duration: .8, ease: 'power1.inOut' });
+tl.fromTo('#cta', { opacity: 0, scale: .6, xPercent: -50, x: 0 }, { opacity: 1, scale: 1, xPercent: -50, duration: .55, ease: 'back.out(2)' }, 26.4);
+tl.fromTo('#phone', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .45 }, 26.7);
+tl.fromTo('#bsc', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .45 }, 27.0);
+at(27.4, S, { shine: 1, duration: .8, ease: 'power1.inOut' });
+at(28.9, S, { shine: 2, duration: .8, ease: 'power1.inOut' });
 tl.to({}, { duration: .01 }, DURATION);
 
 // step labels (swap on beats)
@@ -338,9 +342,24 @@ function procedural(t) {
   $('#haloRing').setAttribute('opacity', S.halo);
   // shake
   const sh = S.shake * (t < 4.8 ? 1 : 0) + Math.max(0, 1 - (t - 7.2) / .35) * (t >= 7.2 ? .6 : 0);
-  $('#world').style.transform = sh > 0.001
-    ? `translate(${Math.sin(t * 61.3) * Math.cos(t * 17.1) * 16 * sh}px, ${Math.cos(t * 47.9) * Math.sin(t * 23.3) * 16 * sh}px) rotate(${Math.sin(t * 37.7) * .8 * sh}deg)`
-    : '';
+  // slow push-in on the opening shot, released while the screen floods
+  const push = 1 + .035 * easeInOut(prog(t, 0, 2.4)) * (1 - easeInOut(prog(t, 2.4, 2.9)));
+  $('#world').style.transform = (sh > 0.001
+    ? `translate(${Math.sin(t * 61.3) * Math.cos(t * 17.1) * 16 * sh}px, ${Math.cos(t * 47.9) * Math.sin(t * 23.3) * 16 * sh}px) rotate(${Math.sin(t * 37.7) * .8 * sh}deg) `
+    : '') + (push > 1.0001 ? `scale(${push})` : '');
+
+  // drifting leaf motes + the falling leaf's shadow on the water (opening shot)
+  const moteK = clamp(t / .6) * (1 - prog(t, 2.25, 2.6));
+  motes.forEach(m => {
+    m.el.setAttribute('cx', m.x + Math.sin(t * .9 + m.ph) * 24);
+    m.el.setAttribute('cy', m.y - t * m.v);
+    m.el.setAttribute('transform', `rotate(${m.a + t * 30} ${m.x + Math.sin(t * .9 + m.ph) * 24} ${m.y - t * m.v})`);
+    m.el.setAttribute('opacity', moteK * .35);
+  });
+  const shK = t < 2.4 ? clamp(S.leafP * 1.4 - .4) : 0;
+  const shadow = $('#leafShadow');
+  shadow.setAttribute('rx', 40 + 60 * shK); shadow.setAttribute('ry', 8 + 8 * shK);
+  shadow.setAttribute('opacity', shK * .22 * (1 - prog(t, 1.5, 2.3)));
 
   // A/B leaf
   const leaf = $('#leaf');
@@ -480,7 +499,7 @@ function procedural(t) {
   } else { wire.setAttribute('opacity', 0); sparks.forEach(s => s.setAttribute('opacity', 0)); }
 
   // how-to: press ripples on the power icon, arc arrow around the dial
-  if (t > 21.5 && t < 23.4) {
+  if (t > 21.5 && t < 23.3) {
     const pw = K.project(K.base, [320, 1, 165]);
     pRing.forEach((e, k) => {
       const s = clamp(S.press * 1.3 - k * .3);
@@ -491,19 +510,20 @@ function procedural(t) {
     const a0 = -2.4, a1 = a0 + S.turn * 2.6, rx = 190, ry = 110;
     const pts = []; for (let k = 0; k <= 30; k++) { const a = lerp(a0, a1, k / 30); pts.push(`${c.x + Math.cos(a) * rx} ${c.y + Math.sin(a) * ry}`); }
     turnArc.setAttribute('d', 'M' + pts.join(' L'));
-    turnArc.setAttribute('opacity', S.turn > 0 && t < 23.2 ? 1 : 0);
+    turnArc.setAttribute('opacity', S.turn > 0 && t < 23.1 ? 1 : 0);
     const ha = a1, hx = c.x + Math.cos(ha) * rx, hy = c.y + Math.sin(ha) * ry, tx = -Math.sin(ha) * rx, ty = Math.cos(ha) * ry, tl2 = Math.hypot(tx, ty);
     const ux = tx / tl2, uy = ty / tl2;
     turnHead.setAttribute('d', `M${hx + ux * 26} ${hy + uy * 26} L${hx - uy * 16} ${hy + ux * 16} L${hx + uy * 16} ${hy - ux * 16} Z`);
-    turnHead.setAttribute('opacity', S.turn > 0.05 && t < 23.2 ? 1 : 0);
+    turnHead.setAttribute('opacity', S.turn > 0.05 && t < 23.1 ? 1 : 0);
   } else { pRing.forEach(e => e.setAttribute('opacity', 0)); turnArc.setAttribute('opacity', 0); turnHead.setAttribute('opacity', 0); }
-  const si = t < 22.4 ? 0 : t < 23.2 ? 1 : 2;
+  const si = t < 22.5 ? 0 : t < 23.1 ? 1 : 2;
   $('#stepNum').textContent = STEPS[si][0]; $('#stepWord').textContent = STEPS[si][1];
-  const pop = [21.65, 22.4, 23.2][si], pk = clamp((t - pop) / .3);
+  const pop = [21.65, 22.5, 23.1][si], pk = clamp((t - pop) / .3);
   const stepIn = prog(t, 21.65, 21.95), stepOut = prog(t, 23.8, 24.05);
   $('#step').style.opacity = stepIn * (1 - stepOut);
   $('#step').style.transform = `translateY(${-stepOut * 30}px) scale(${lerp(.6, 1, easeOut(pk)) * (si === 0 ? 1 : 1)})`;
-  K.power.material.emissive.setRGB(.25 * S.press * (t < 23.2 ? 1 : 0), .7 * S.press * (t < 23.2 ? 1 : 0), .3 * S.press * (t < 23.2 ? 1 : 0));
+  const pw = S.press * (t < 23.1 ? 1 : 0);
+  K.power.material.emissive.setRGB(.25 * pw, .7 * pw, .3 * pw);
 
   // leaf flies into the logo tile
   const l2 = $('#leaf2');
