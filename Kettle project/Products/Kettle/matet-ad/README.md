@@ -8,7 +8,7 @@ Three 30-second vertical ads (1080×1920, 30 fps) for Reels, TikTok, Shorts, Sto
 | 2 · Illustrated | `option-2-illustrated.mp4` | Calm hand-drawn illustration on paper: one ink line turns leaf → drop → dial → kettle → sun → logo |
 | 3 · Product | `option-3-product.mp4` | Bold product ad: the real product photo, colour cuts on the beat, big Arabic type |
 
-All three use the same music ("Hopeful"), each with its own edit, so they can be compared on the visuals.
+Option 1 uses calm solo piano ("Lovely Piano Song") with realistic foley: a real water drop, boiling, the kettle's switch click, dial detents, its beep, a real water stream for the pour. Options 2 and 3 use "Hopeful".
 
 ## Quick start
 
@@ -32,7 +32,7 @@ npm run video:1    # renders and masters option-1-story.mp4 (also video:2, video
 | 21.6–24.0s | Close-up "how to": the button glows, the dial turns while the LED counts 28° → 77°, then steam | ١ اضغط · ٢ أدِر · ٣ استمتع |
 | 24.0–30.0s | The opening leaf flies into the **MATET logo**. The kettle turns to face the camera, and on the song's final chord (26.4s) the call to action appears with the WhatsApp number and the Business Solutions Center logo | **إبريق متة ذكي** · متة مثالية في كل مرة · **اطلب الآن** |
 
-The music ("Hopeful") is exactly 100 BPM, so 1 bar is 2.4 s (72 frames). The scene changes, callouts, badges and how-to steps land on its bars and beats.
+The music ("Lovely Piano Song") is exactly 100 BPM, so 1 bar is 2.4 s (72 frames). The scene changes, callouts, badges and how-to steps land on its bars and beats. At the freeze (4.8 s) the kettle is switched off, the piano rings out in the room and the dial clicks down in silence; the piano returns at 7.2 s and its final note lands on the call to action (26.4 s).
 
 ## Project structure
 
@@ -79,7 +79,7 @@ Remotion packages used:
 ## Licences
 
 - **Remotion:** free for individuals and for companies with **up to 3 employees**. Larger for-profit companies need a Company License from https://www.remotion.pro/license.
-- **Music:** "Hopeful" by Kevin MacLeod, via FreePD, is public domain (CC0).
+- **Music:** "Lovely Piano Song" and "Hopeful" by Kevin MacLeod, via FreePD, are public domain (CC0).
 - **Sound effects:** CC0 (Kenney, Ben Burnes and others). See `audio-src/sfx/CREDITS.txt`.
 - **Fonts:** Alexandria, Aref Ruqaa and Amiri, under the SIL Open Font License.
 - **Studio HDRI:** "Studio Small 03" from Poly Haven, CC0.

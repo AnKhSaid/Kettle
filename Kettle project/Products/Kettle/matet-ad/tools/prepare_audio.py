@@ -3,12 +3,12 @@
 Remotion mixes <Audio> elements but has no audio filters, so the parts of the soundtrack
 that need processing are rendered here once:
 
-  public/audio/music.wav      "Hopeful" (Kevin MacLeod, FreePD, CC0) edited to picture:
-                                0.0-4.8 s  the song's first bars, muffled by a low-pass that opens up
-                                4.55-4.8 s tape-stop into the freeze (silence until 7.2 s)
-                                ~5.6-7.2 s reversed swell of the drop bar
-                                7.2 s ->   the song from bar 36 (86.84 s) to its own ending;
-                                           the final chord lands at 26.4 s
+  public/audio/music.wav      option 1: "Lovely Piano Song" (Kevin MacLeod, FreePD, CC0), calm solo piano
+                              edited to picture:
+                                0.0-4.8 s  the song's opening, placed so a bar starts on the freeze
+                                4.8 s      the music stops and rings out in the room (time freezes)
+                                ~6-7.2 s   a reversed piano swell leads back in
+                                7.2 s ->   the song from bar 28 (69.14 s); its final note lands at 26.4 s
   public/audio/music-2.wav    option 2 (illustrated): the song's gentle first 11 bars, then its
                               final chord at 26.4 s (a V -> I cadence hides the jump)
   public/audio/music-3.wav    option 3 (bold product ad): the song from bar 33, so its biggest
@@ -18,8 +18,9 @@ that need processing are rendered here once:
   src/audio/sfx-manifest.json per-file gain so the composition can place every effect at the
                               same relative level as the original mix
 
-The song is exactly 100 BPM (downbeats at 0.44 + 2.4*n s, measured with madmom), the same
-grid as the video: 30 fps, 1 beat = 18 frames, 1 bar = 72 frames.
+Both songs are exactly 100 BPM — the same grid as the video: 30 fps, 1 beat = 18 frames,
+1 bar = 72 frames. "Hopeful" has downbeats at 0.44 + 2.4*n s (measured with madmom); "Lovely
+Piano Song" at 1.944 + 2.4*n s, with its final note on bar 36 (88.34 s).
 
 Run from the project root:  python3 tools/prepare_audio.py   (needs numpy, scipy, librosa)
 """
@@ -61,44 +62,49 @@ def write(path, x, peak=0.89):
     return g
 
 
-# ---------------------------------------------------------------- music edit
+# ---------------------------------------------------------------- music edits
 song = load(os.path.join(SRC, "Hopeful - Kevin MacLeod (FreePD CC0).mp3"))
+DOWN0 = 0.44
+piano = load(os.path.join(SRC, "Lovely Piano Song - Kevin MacLeod (FreePD CC0).mp3"))
+P_DOWN0, P_FINAL = 1.944, 1.944 + 2.4 * 36
+
+
+def room_tail(x, seconds, decay, seed):
+    """Convolve with a soft, decaying noise impulse: the sound ringing out in a room."""
+    L = t2i(seconds)
+    rng = np.random.default_rng(seed)
+    ir = rng.normal(0, 1, (L, 2)) * np.exp(-np.arange(L) / SR / decay)[:, None]
+    ir = signal.sosfilt(sos("lowpass", 2500, 2), ir, axis=0)
+    ir /= np.sqrt((ir ** 2).sum(0))
+    return np.stack([signal.fftconvolve(x[:, c], ir[:, c]) for c in range(2)], 1)
+
+
+# option 1: calm piano. The song's opening (a bar starts at 2.4 s and at the 4.8 s freeze) ...
 music = np.zeros((N, 2))
-
-DOWN0, BAR36 = 0.44, 86.84
-intro = song[t2i(DOWN0 - 0.25):t2i(DOWN0 + 4.8)].copy()
-t = np.arange(len(intro)) / SR - 0.25
-cutoff = np.interp(t, [0, 2.3, 4.5], [650, 900, 3200])
-out = np.zeros_like(intro)
-zi = None
-for i in range(0, len(intro), 512):
-    s = sos("lowpass", float(cutoff[min(i, len(cutoff) - 1)]), 4)
-    if zi is None:
-        zi = np.zeros((s.shape[0], 2, 2))
-    for c in range(2):
-        out[i:i + 512, c], zi[:, c] = signal.sosfilt(s, intro[i:i + 512, c], zi=zi[:, c])
-gain = np.interp(t, [-0.25, 0.3, 2.3, 4.5], [0, .42, .5, .95]) ** 1.3
-intro = out * gain[:, None]
-a, b = t2i(4.55 + 0.25), t2i(4.8 + 0.25)                     # tape-stop
-pos = a + np.cumsum(np.linspace(1, 0, b - a) ** 1.2)
-intro[a:b] = np.stack([np.interp(pos, np.arange(len(intro)), intro[:, c]) for c in range(2)], 1) * np.linspace(1, .4, b - a)[:, None]
-intro[b:] = 0
-music[:len(intro) - t2i(0.25)] += intro[t2i(0.25):]
-
-main = song[t2i(BAR36 - 0.012):t2i(BAR36 - 0.012 + DUR - 7.2 + 0.012)]
+lead = 2.4 - P_DOWN0                                          # video time of the song's t = 0
+intro = piano[:t2i(4.8 - lead)].copy()
+intro[:t2i(0.3)] *= np.linspace(0, 1, t2i(0.3))[:, None]
+intro[-t2i(0.05):] *= np.linspace(1, 0, t2i(0.05))[:, None]
+i0 = t2i(lead)
+music[i0:i0 + len(intro)] += intro
+# ... at the freeze the last moment rings out in the room while everything stands still ...
+held = piano[t2i(4.8 - lead - 0.35):t2i(4.8 - lead)].copy() * np.linspace(0.3, 1, t2i(0.35))[:, None]
+tail = room_tail(held, 2.2, 0.55, 5)[t2i(0.35):]
+tail = tail / (np.max(np.abs(tail)) + 1e-9) * np.max(np.abs(held)) * 0.7
+e = min(N, t2i(4.8) + len(tail))
+music[t2i(4.8):e] += tail[:e - t2i(4.8)]
+# ... a reversed piano swell leads back in ...
+BAR28 = P_DOWN0 + 2.4 * 28
+rev = piano[t2i(BAR28):t2i(BAR28 + 1.4)][::-1].copy()
+rev = room_tail(rev, 0.6, 0.18, 1)[:len(rev)]
+rev = rev / (np.max(np.abs(rev)) + 1e-9) * (np.linspace(0, 1, len(rev)) ** 2.5)[:, None] * 0.35
+e = t2i(7.2 - 0.02)
+music[e - len(rev):e] += rev
+# ... and the song returns from bar 28, so its final note lands on the call to action at 26.4 s.
+main = piano[t2i(BAR28 - 0.012):t2i(BAR28 - 0.012) + N - t2i(7.2 - 0.012)]
 i0 = t2i(7.2 - 0.012)
 music[i0:i0 + len(main)] += main
-
-rev = song[t2i(BAR36):t2i(BAR36 + 1.6)][::-1].copy()          # reversed swell into the drop
-rev = signal.sosfilt(sos("lowpass", 3500, 2), rev, axis=0)
-L = t2i(0.35)
-ir = np.random.default_rng(1).normal(0, 1, (L, 2)) * np.exp(-np.arange(L) / SR / .12)[:, None]
-rev = np.stack([signal.fftconvolve(rev[:, c], ir[:, c])[:len(rev)] for c in range(2)], 1)
-rev = rev / (np.max(np.abs(rev)) + 1e-9) * (np.linspace(0, 1, len(rev)) ** 3)[:, None] * 0.55
-e = t2i(7.2 - 0.03)
-music[e - len(rev):e] += rev
-
-fo = t2i(29.0)
+fo = t2i(29.2)
 music[fo:] *= np.linspace(1, 0, N - fo)[:, None] ** 2
 
 os.makedirs(os.path.join(OUT, "sfx"), exist_ok=True)
@@ -192,13 +198,38 @@ SFX = {
     "confirm-2": (K + "confirmation_002.ogg", {}),
     "ratchet": (M + "Ratchet_Muted_3.wav", {}),
     "paper-flutter": ("Micro_Pack_-_Paper_Cutter__Paper_Flutter.wav", {}),
+    # realistic foley for option 1
+    "switch-off": ("100-CC0-SFX__switch_01.ogg", {}),
+    "detent": (M + "Ratchet_Muted_1.wav", {"hp": 400}),
+    "dial-ratchet": (M + "Ratchet_Muted_4.wav", {"hp": 300}),
+    "button-click": (M + "Click_Button_1.wav", {}),
+    "gourd-knock": ("100-CC0-SFX__wooden_01.ogg", {"lp": 5000}),
+    "steel-ting": ("BB_Retail_Therapy__Silverware_Ting_1.wav", {"lp": 9000}),
+    "set-down": ("BB_Retail_Therapy__Good_Thunk_1.wav", {"lp": 3500}),
+    "water-contact": (WA + "bubble_03.ogg", {"lp": 6000}),
+    "stream": ("bb_-_Fans_and_Drones_(Jul_2021)__Sink_and_Faucet_10-15s.wav", {"loop": True, "lp": 7000, "hp": 180}),
+    "beep": ("synth:beep", {}),
 }
+
+
+def beep(n=1, f=2750, dur=0.13, gap=0.1):
+    """The kettle's piezo beep: a pure tone with a soft edge (n beeps)."""
+    t = np.arange(t2i(dur)) / SR
+    env = np.minimum(1, t / 0.004) * np.minimum(1, (dur - t) / 0.02)
+    one = (np.sin(2 * np.pi * f * t) + 0.08 * np.sin(2 * np.pi * 3 * f * t)) * env
+    x = np.zeros(t2i(n * dur + (n - 1) * gap))
+    for k in range(n):
+        a = t2i(k * (dur + gap))
+        x[a:a + len(one)] += one
+    return np.stack([x, x], 1)
 
 # The original mix was: music + 0.9 * sfx (each at its dB), so every effect's volume in the
 # composition is  0.9 * 10^(dB/20) * music_gain / file_gain  (see src/audio/Soundtrack.tsx).
 manifest = {"musicGain": music_gain, "musicGains": {"option2": music2_gain, "option3": music3_gain}, "sfx": {}}
 for name, (src, opts) in SFX.items():
-    x = load(os.path.join(SRC, "sfx", src))
+    x = beep() if src == "synth:beep" else load(os.path.join(SRC, "sfx", src))
+    if opts.get("hp"):
+        x = signal.sosfilt(sos("highpass", opts["hp"], 2), x, axis=0)
     if opts.get("reverse"):
         x = x[::-1].copy()
     if opts.get("lp"):

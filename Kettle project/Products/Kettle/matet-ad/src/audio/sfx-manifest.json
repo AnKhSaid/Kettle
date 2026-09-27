@@ -1,5 +1,5 @@
 {
- "musicGain": 0.8670104873514946,
+ "musicGain": 1.3305647092225104,
  "musicGains": {
   "option2": 0.8751227398289597,
   "option3": 0.8670104873514946
@@ -194,6 +194,56 @@
    "file": "audio/sfx/paper-flutter.wav",
    "gain": 5.026787685394215,
    "seconds": 1.917
+  },
+  "switch-off": {
+   "file": "audio/sfx/switch-off.wav",
+   "gain": 0.885063102837226,
+   "seconds": 0.831
+  },
+  "detent": {
+   "file": "audio/sfx/detent.wav",
+   "gain": 1.5768588799507786,
+   "seconds": 0.94
+  },
+  "dial-ratchet": {
+   "file": "audio/sfx/dial-ratchet.wav",
+   "gain": 2.056940783914156,
+   "seconds": 2.006
+  },
+  "button-click": {
+   "file": "audio/sfx/button-click.wav",
+   "gain": 1.4686822413593177,
+   "seconds": 0.953
+  },
+  "gourd-knock": {
+   "file": "audio/sfx/gourd-knock.wav",
+   "gain": 0.8798021247040632,
+   "seconds": 0.974
+  },
+  "steel-ting": {
+   "file": "audio/sfx/steel-ting.wav",
+   "gain": 1.188932348655852,
+   "seconds": 1.269
+  },
+  "set-down": {
+   "file": "audio/sfx/set-down.wav",
+   "gain": 1.1371444569365627,
+   "seconds": 1.223
+  },
+  "water-contact": {
+   "file": "audio/sfx/water-contact.wav",
+   "gain": 1.2090379082734823,
+   "seconds": 1.147
+  },
+  "stream": {
+   "file": "audio/sfx/stream.wav",
+   "gain": 12.866051406489875,
+   "seconds": 5.0
+  },
+  "beep": {
+   "file": "audio/sfx/beep.wav",
+   "gain": 0.8220504471770201,
+   "seconds": 0.73
   }
  }
 }

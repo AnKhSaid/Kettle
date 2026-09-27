@@ -3,6 +3,9 @@ Source: https://github.com/lavenderdotpet/CC0-Public-Domain-Sounds (a collection
 
 - Micro Pack - Organic Wooshes; bb - Books, Paper, Writing; bb - Smol Mechanisms; Micro Pack - Paper Cutter
   by Ben Burnes (Abstraction) — each pack's README states: "These sounds are public domain (Creative Commons 0)."
+- bb - Fans and Drones (Sink and Faucet, 10-15 s excerpt); BB Retail Therapy Sample Pack (Good Thunk, Silverware Ting)
+  by Ben Burnes (Abstraction) — CC0
+- 100-CC0-SFX (switch, wooden) — CC0
 - kenney_interfacesounds, kenney_impactsounds — Kenney (www.kenney.nl), License: CC0
 - 40-cc0-water-splash-slime-sfx, 30-cc0-sfx-loops — CC0 packs (repository licence: CC0 1.0)
 
