@@ -9,6 +9,10 @@ that need processing are rendered here once:
                                 ~5.6-7.2 s reversed swell of the drop bar
                                 7.2 s ->   the song from bar 36 (86.84 s) to its own ending;
                                            the final chord lands at 26.4 s
+  public/audio/music-2.wav    option 2 (illustrated): the song's gentle first 11 bars, then its
+                              final chord at 26.4 s (a V -> I cadence hides the jump)
+  public/audio/music-3.wav    option 3 (bold product ad): the song from bar 33, so its biggest
+                              entrance (bar 36) hits at 7.2 s and the final chord at 26.4 s
   public/audio/sfx/*.wav      CC0 sound effects converted to WAV, with a light room reverb
                               and any filtering/reversing baked in
   src/audio/sfx-manifest.json per-file gain so the composition can place every effect at the
@@ -100,6 +104,33 @@ music[fo:] *= np.linspace(1, 0, N - fo)[:, None] ** 2
 os.makedirs(os.path.join(OUT, "sfx"), exist_ok=True)
 music_gain = write(os.path.join(OUT, "music.wav"), music)
 
+
+def fade(x, start, end, curve=2):
+    """Fade x (in place) to silence between two times (s)."""
+    a, b = t2i(start), min(len(x), t2i(end))
+    x[a:b] *= np.linspace(1, 0, b - a)[:, None] ** curve
+    x[b:] = 0
+    return x
+
+
+FINAL = DOWN0 + 2.4 * 44                                      # the song's final chord
+
+# option 2: bars 0-10 (gentle opening), then the final chord at 26.4 s
+m2 = np.zeros((N, 2))
+head = song[t2i(DOWN0):t2i(DOWN0 + 26.4 - 0.012)].copy()   # stop just before bar 11's downbeat
+head[:t2i(0.4)] *= np.linspace(0, 1, t2i(0.4))[:, None] ** 2
+head[-t2i(0.06):] *= np.linspace(1, 0, t2i(0.06))[:, None]
+m2[:len(head)] += head
+tail = song[t2i(FINAL - 0.012):t2i(FINAL - 0.012 + DUR - 26.4 + 0.012)]
+m2[t2i(26.4 - 0.012):t2i(26.4 - 0.012) + len(tail)] += tail[:N - t2i(26.4 - 0.012)]
+music2_gain = write(os.path.join(OUT, "music-2.wav"), fade(m2, 29.0, 30.0))
+
+# option 3: straight from bar 33 — bar 36 lands on 7.2 s and the final chord on 26.4 s
+BAR33 = DOWN0 + 2.4 * 33
+m3 = song[t2i(BAR33 - 0.008):t2i(BAR33 - 0.008) + N].copy()
+m3[:t2i(0.008)] *= np.linspace(0, 1, t2i(0.008))[:, None]
+music3_gain = write(os.path.join(OUT, "music-3.wav"), fade(m3, 29.0, 30.0))
+
 # ---------------------------------------------------------------- sound effects
 L = t2i(0.6)
 room_ir = np.random.default_rng(3).normal(0, 1, (L, 2)) * np.exp(-np.arange(L) / SR / .14)[:, None]
@@ -165,7 +196,7 @@ SFX = {
 
 # The original mix was: music + 0.9 * sfx (each at its dB), so every effect's volume in the
 # composition is  0.9 * 10^(dB/20) * music_gain / file_gain  (see src/audio/Soundtrack.tsx).
-manifest = {"musicGain": music_gain, "sfx": {}}
+manifest = {"musicGain": music_gain, "musicGains": {"option2": music2_gain, "option3": music3_gain}, "sfx": {}}
 for name, (src, opts) in SFX.items():
     x = load(os.path.join(SRC, "sfx", src))
     if opts.get("reverse"):
@@ -179,4 +210,4 @@ for name, (src, opts) in SFX.items():
 
 with open(os.path.join(ROOT, "src", "audio", "sfx-manifest.json"), "w") as f:
     json.dump(manifest, f, indent=1)
-print(f"music.wav written (gain {music_gain:.3f}); {len(SFX)} effects")
+print(f"music edits written (gains {music_gain:.3f}, {music2_gain:.3f}, {music3_gain:.3f}); {len(SFX)} effects")

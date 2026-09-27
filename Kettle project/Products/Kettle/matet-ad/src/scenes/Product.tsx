@@ -31,7 +31,7 @@ export const Product: React.FC = () => (
       <EndBack />
     </Sequence>
 
-    <Sequence name="3D kettle" from={0} durationInFrames={sec(PRODUCT.end - PRODUCT.start)} premountFor={sec(1)}>
+    <Sequence name="3D kettle" durationInFrames={sec(PRODUCT.end - PRODUCT.start)} premountFor={sec(1)}>
       <KettleStage start={PRODUCT.start} />
     </Sequence>
 

@@ -6,7 +6,7 @@ import manifest from "./sfx-manifest.json";
 
 type SfxName = keyof typeof manifest.sfx;
 
-type Cue = {
+export type Cue = {
   /** global time in seconds */
   at: number;
   name: SfxName;
@@ -97,13 +97,13 @@ export const CUES: Cue[] = [
 ];
 
 // The original mix was: music + 0.9 * each effect at its dB. Files are normalised, so undo that.
-const volumeOf = (c: Cue) => {
+const volumeOf = (c: Cue, musicGain: number) => {
   const file = manifest.sfx[c.name];
-  return (0.9 * 10 ** (c.db / 20) * manifest.musicGain) / file.gain;
+  return (0.9 * 10 ** (c.db / 20) * musicGain) / file.gain;
 };
 
-const SoundEffect: React.FC<{ cue: Cue }> = ({ cue }) => {
-  const base = volumeOf(cue);
+const SoundEffect: React.FC<{ cue: Cue; musicGain: number }> = ({ cue, musicGain }) => {
+  const base = volumeOf(cue, musicGain);
   const src = staticFile(manifest.sfx[cue.name].file);
   if (cue.loopUntil !== undefined) {
     const frames = sec(cue.loopUntil - cue.at);
@@ -139,11 +139,14 @@ const SoundEffect: React.FC<{ cue: Cue }> = ({ cue }) => {
   );
 };
 
-export const Soundtrack: React.FC = () => (
+/** A music edit plus its cue sheet of sound effects. `musicGain` is the edit's normalisation gain. */
+export const Mix: React.FC<{ music: string; musicGain: number; cues: Cue[]; name: string }> = ({ music, musicGain, cues, name }) => (
   <>
-    <Audio src={staticFile("audio/music.wav")} name="Music: Hopeful (edited)" />
-    {CUES.map((cue, i) => (
-      <SoundEffect key={i} cue={cue} />
+    <Audio src={staticFile(music)} name={name} />
+    {cues.map((cue, i) => (
+      <SoundEffect key={i} cue={cue} musicGain={musicGain} />
     ))}
   </>
 );
+
+export const Soundtrack: React.FC = () => <Mix music="audio/music.wav" musicGain={manifest.musicGain} cues={CUES} name="Music: Hopeful (edited)" />;

@@ -1,7 +1,7 @@
 {
   "name": "matet-ad",
   "version": "1.0.0",
-  "description": "MATET smart mate kettle \u2014 30 s Arabic vertical ad, made with Remotion",
+  "description": "MATET smart mate kettle — 30 s Arabic vertical ad, made with Remotion",
   "repository": {},
   "license": "UNLICENSED",
   "private": true,
@@ -41,7 +41,9 @@
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc",
     "render:1": "remotion render Option1-Story out/option-1-story-raw.mp4 --codec=h264 --crf=17 --audio-bitrate=256k",
-    "video:1": "npm run render:1 && node tools/master.mjs out/option-1-story-raw.mp4 option-1-story.mp4"
+    "video:1": "npm run render:1 && node tools/master.mjs out/option-1-story-raw.mp4 option-1-story.mp4",
+    "render:3": "remotion render Option3-Product out/option-3-product-raw.mp4 --codec=h264 --crf=17 --audio-bitrate=256k",
+    "video:3": "npm run render:3 && node tools/master.mjs out/option-3-product-raw.mp4 option-3-product.mp4"
   },
   "sideEffects": [
     "*.css"

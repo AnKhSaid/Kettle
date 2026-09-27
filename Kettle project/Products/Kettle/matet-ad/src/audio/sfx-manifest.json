@@ -1,5 +1,9 @@
 {
  "musicGain": 0.8670104873514946,
+ "musicGains": {
+  "option2": 0.8751227398289597,
+  "option3": 0.8670104873514946
+ },
  "sfx": {
   "drop": {
    "file": "audio/sfx/drop.wav",
