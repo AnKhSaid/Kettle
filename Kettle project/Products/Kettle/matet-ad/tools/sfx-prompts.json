@@ -1,0 +1,33 @@
+{
+  "_about": "Sound-effect shot list for option 1, one entry per on-screen action (times are global seconds in the ad). tools/generate_sfx.mjs sends each prompt to ElevenLabs Sound Effects and saves the takes in audio-src/sfx/elevenlabs/.",
+  "sounds": [
+    { "name": "room-tone", "at": 0, "seconds": 22, "text": "Very quiet cozy kitchen room tone in the morning, soft air, distant birds outside a window, no voices, no music" },
+    { "name": "leaf-drop", "at": 1.5, "seconds": 1.5, "text": "A single small dry leaf lands softly on still water, tiny gentle plip and a faint ripple, close-up, quiet room" },
+    { "name": "boil-rise", "at": 2.3, "seconds": 3, "text": "Water inside an electric kettle heating up to a rolling boil, rumbling and bubbling that builds in intensity, close microphone" },
+    { "name": "marker-x", "at": 4.19, "seconds": 0.8, "text": "Thick marker pen drawing two quick strokes of an X on paper" },
+    { "name": "switch-off", "at": 4.8, "seconds": 1, "text": "Electric kettle power switch clicked off, one crisp plastic click, then sudden silence" },
+    { "name": "freeze-air", "at": 4.8, "seconds": 2.4, "text": "Subtle airy suspended tension, time standing still, very soft, a gentle reversed swell rising at the very end" },
+    { "name": "counter-detents", "at": 4.95, "seconds": 1.9, "text": "Rotary dial turned slowly, soft precise mechanical detent clicks, about twenty clicks, quiet and close" },
+    { "name": "leaves-burst", "at": 7.2, "seconds": 1.3, "text": "A handful of fresh green leaves tossed into the air, soft rustling flutter" },
+    { "name": "underline", "at": 7.95, "seconds": 0.6, "text": "Felt-tip marker drawing one quick underline stroke on paper" },
+    { "name": "ring-whoosh", "at": 8.85, "seconds": 0.8, "text": "Soft short airy whoosh passing by, subtle and clean" },
+    { "name": "pencil-sketch", "at": 9.5, "seconds": 1.5, "text": "Pencil quickly sketching confident lines on paper" },
+    { "name": "reveal-sweep", "at": 10.55, "seconds": 1, "text": "Soft elegant reveal sweep, gentle airy rising tone, subtle premium product reveal" },
+    { "name": "led-beep", "at": 11.35, "seconds": 0.5, "text": "Modern electric kettle digital display turning on, one short soft high electronic beep" },
+    { "name": "callout-tick", "at": 12.0, "seconds": 0.5, "text": "Very soft subtle minimal interface tick, clean and quiet" },
+    { "name": "gourd-set", "at": 14.85, "seconds": 1, "text": "Wooden mate gourd with a metal straw set down gently on a wooden table, hollow wooden knock and a small metal clink" },
+    { "name": "kettle-lift", "at": 15.1, "seconds": 0.8, "text": "Lifting a cordless electric kettle off its base, soft plastic unclick" },
+    { "name": "pour", "at": 15.7, "seconds": 3.4, "text": "Hot water pouring from a thin gooseneck kettle spout into a small wooden mate gourd full of yerba mate leaves, steady thin stream, gentle gurgle, ending with a few drips" },
+    { "name": "kettle-return", "at": 19.1, "seconds": 0.8, "text": "Placing an electric kettle back onto its base, soft solid plastic clunk" },
+    { "name": "sun-rise", "at": 19.2, "seconds": 1.2, "text": "Warm gentle rising shimmer like a sunrise, soft and airy" },
+    { "name": "marker-circle", "at": 19.95, "seconds": 0.7, "text": "Marker pen drawing one quick circle on paper" },
+    { "name": "power-flow", "at": 20.2, "seconds": 1.3, "text": "Soft electrical energy flowing through a wire, gentle crackle and low hum, subtle" },
+    { "name": "button-press", "at": 21.9, "seconds": 0.8, "text": "Pressing a soft-touch power button on an electric kettle base, small click followed by a short electronic beep" },
+    { "name": "dial-turn", "at": 22.5, "seconds": 0.8, "text": "Turning a rotary temperature dial on a kitchen appliance, smooth ratcheting clicks" },
+    { "name": "ready-beep", "at": 23.12, "seconds": 0.8, "text": "Electric kettle double beep, target temperature reached, two short soft pleasant beeps" },
+    { "name": "steam", "at": 23.25, "seconds": 1.5, "text": "Soft steam rising from a hot drink, gentle quiet hiss" },
+    { "name": "leaf-flight", "at": 24.0, "seconds": 1, "text": "A single leaf flying through the air with a soft swoosh" },
+    { "name": "logo-settle", "at": 24.9, "seconds": 0.8, "text": "Soft elegant logo appearance, gentle wooden knock with a light shimmer" },
+    { "name": "call-to-action", "at": 26.4, "seconds": 0.8, "text": "Soft warm premium confirmation sound, subtle and friendly" }
+  ]
+}
