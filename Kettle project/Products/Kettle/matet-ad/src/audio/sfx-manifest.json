@@ -1,0 +1,195 @@
+{
+ "musicGain": 0.8670104873514946,
+ "sfx": {
+  "drop": {
+   "file": "audio/sfx/drop.wav",
+   "gain": 1.8632882276761407,
+   "seconds": 0.96
+  },
+  "splash": {
+   "file": "audio/sfx/splash.wav",
+   "gain": 1.7269390356450873,
+   "seconds": 0.96
+  },
+  "boil": {
+   "file": "audio/sfx/boil.wav",
+   "gain": 5.239218709577024,
+   "seconds": 4.492
+  },
+  "bubbles": {
+   "file": "audio/sfx/bubbles.wav",
+   "gain": 2.1015720901706527,
+   "seconds": 7.334
+  },
+  "scribble": {
+   "file": "audio/sfx/scribble.wav",
+   "gain": 6.28562462951085,
+   "seconds": 1.983
+  },
+  "bell": {
+   "file": "audio/sfx/bell.wav",
+   "gain": 1.0347513188214976,
+   "seconds": 2.08
+  },
+  "glass-tick": {
+   "file": "audio/sfx/glass-tick.wav",
+   "gain": 0.9851202796695466,
+   "seconds": 0.81
+  },
+  "tick": {
+   "file": "audio/sfx/tick.wav",
+   "gain": 0.9478773673105984,
+   "seconds": 0.655
+  },
+  "tick-hi": {
+   "file": "audio/sfx/tick-hi.wav",
+   "gain": 0.767228076506534,
+   "seconds": 0.623
+  },
+  "swish-reverse": {
+   "file": "audio/sfx/swish-reverse.wav",
+   "gain": 2.631953244651521,
+   "seconds": 1.243
+  },
+  "swish": {
+   "file": "audio/sfx/swish.wav",
+   "gain": 2.5303167961625332,
+   "seconds": 1.243
+  },
+  "swish-1": {
+   "file": "audio/sfx/swish-1.wav",
+   "gain": 2.1648193127596307,
+   "seconds": 0.956
+  },
+  "swish-5": {
+   "file": "audio/sfx/swish-5.wav",
+   "gain": 4.1592909743991,
+   "seconds": 0.921
+  },
+  "swish-classic-1": {
+   "file": "audio/sfx/swish-classic-1.wav",
+   "gain": 3.5881145952222693,
+   "seconds": 0.969
+  },
+  "swish-classic-2": {
+   "file": "audio/sfx/swish-classic-2.wav",
+   "gain": 2.904046597862103,
+   "seconds": 0.939
+  },
+  "swish-gentle": {
+   "file": "audio/sfx/swish-gentle.wav",
+   "gain": 13.867395140405069,
+   "seconds": 1.09
+  },
+  "twirl": {
+   "file": "audio/sfx/twirl.wav",
+   "gain": 7.981938724793693,
+   "seconds": 1.676
+  },
+  "thunk": {
+   "file": "audio/sfx/thunk.wav",
+   "gain": 4.28874885746509,
+   "seconds": 0.896
+  },
+  "thump": {
+   "file": "audio/sfx/thump.wav",
+   "gain": 0.9901991695477314,
+   "seconds": 0.783
+  },
+  "pencil": {
+   "file": "audio/sfx/pencil.wav",
+   "gain": 6.889900827178236,
+   "seconds": 4.142
+  },
+  "felt-tip": {
+   "file": "audio/sfx/felt-tip.wav",
+   "gain": 4.133874806567582,
+   "seconds": 1.284
+  },
+  "shimmer": {
+   "file": "audio/sfx/shimmer.wav",
+   "gain": 1.0788786818418756,
+   "seconds": 1.292
+  },
+  "select": {
+   "file": "audio/sfx/select.wav",
+   "gain": 0.9832020401876826,
+   "seconds": 0.643
+  },
+  "pop-1": {
+   "file": "audio/sfx/pop-1.wav",
+   "gain": 1.0055267450027199,
+   "seconds": 0.791
+  },
+  "pop-2": {
+   "file": "audio/sfx/pop-2.wav",
+   "gain": 1.0113136376801282,
+   "seconds": 0.791
+  },
+  "pop-3": {
+   "file": "audio/sfx/pop-3.wav",
+   "gain": 0.9830907639685336,
+   "seconds": 0.887
+  },
+  "minimize": {
+   "file": "audio/sfx/minimize.wav",
+   "gain": 0.9903554773727808,
+   "seconds": 0.812
+  },
+  "wood-knock": {
+   "file": "audio/sfx/wood-knock.wav",
+   "gain": 1.0094949348523632,
+   "seconds": 0.866
+  },
+  "pour": {
+   "file": "audio/sfx/pour.wav",
+   "gain": 4.369926561194724,
+   "seconds": 7.014
+  },
+  "bubble": {
+   "file": "audio/sfx/bubble.wav",
+   "gain": 1.3678759303825532,
+   "seconds": 1.296
+  },
+  "chime-1": {
+   "file": "audio/sfx/chime-1.wav",
+   "gain": 1.0048305874709549,
+   "seconds": 0.878
+  },
+  "chime-2": {
+   "file": "audio/sfx/chime-2.wav",
+   "gain": 0.9933835010636117,
+   "seconds": 0.711
+  },
+  "chime-3": {
+   "file": "audio/sfx/chime-3.wav",
+   "gain": 0.9984927534359936,
+   "seconds": 0.711
+  },
+  "button": {
+   "file": "audio/sfx/button.wav",
+   "gain": 1.3172182689095662,
+   "seconds": 1.109
+  },
+  "confirm-1": {
+   "file": "audio/sfx/confirm-1.wav",
+   "gain": 0.9902745589265698,
+   "seconds": 0.89
+  },
+  "confirm-2": {
+   "file": "audio/sfx/confirm-2.wav",
+   "gain": 0.9937887870681612,
+   "seconds": 1.139
+  },
+  "ratchet": {
+   "file": "audio/sfx/ratchet.wav",
+   "gain": 1.6203432563295495,
+   "seconds": 2.034
+  },
+  "paper-flutter": {
+   "file": "audio/sfx/paper-flutter.wav",
+   "gain": 5.026787685394215,
+   "seconds": 1.917
+  }
+ }
+}

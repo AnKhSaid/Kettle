@@ -1,0 +1,6 @@
+/* sub-labels inside callout pills and badges */
+small {
+  font-weight: 400;
+  font-size: 0.85em;
+  color: #756e61;
+}
