@@ -2,6 +2,7 @@ import { evolvePath } from "@remotion/paths";
 import React from "react";
 import { AbsoluteFill, Img, Interactive, spring, staticFile, useVideoConfig } from "remotion";
 import { Halo, LEAF_D } from "../components/Art";
+import { WhatsApp } from "../components/Icons";
 import { FadeUp, InkReveal, WordSlam } from "../components/Text";
 import { ease, lerp, prog, useGlobalTime } from "../lib/time";
 import { COLORS, FONTS } from "../theme";
@@ -15,12 +16,6 @@ export const EndBack: React.FC = () => {
   return <Halo k={prog(t, 24.1, 25.1, ease.out3)} cy={1060} />;
 };
 
-const WhatsApp: React.FC = () => (
-  <svg viewBox="0 0 32 32" width={56} height={56} style={{ verticalAlign: -11, marginRight: 16 }}>
-    <path fill="#25D366" d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 6.9L3 29l6.5-2c1.9 1 4.1 1.6 6.5 1.6 7.2 0 13-5.7 13-12.8S23.2 3 16 3z" />
-    <path fill="#fff" d="M22.6 19.2c-.4-.2-2.1-1-2.4-1.1-.3-.1-.6-.2-.8.2-.2.4-.9 1.1-1.1 1.3-.2.2-.4.3-.8.1-.4-.2-1.5-.6-2.8-1.8-1-.9-1.7-2-1.9-2.4-.2-.4 0-.6.2-.8l.6-.7c.2-.2.2-.4.4-.6.1-.2 0-.5 0-.7l-1.1-2.6c-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-1 .5-.3.4-1.3 1.3-1.3 3.1s1.3 3.6 1.5 3.9c.2.2 2.6 4 6.3 5.6 3.1 1.2 3.7 1 4.4.9.7-.1 2.1-.9 2.4-1.7.3-.8.3-1.5.2-1.7 0-.2-.3-.3-.7-.5z" />
-  </svg>
-);
 
 /** The leaf from the opening flies back and becomes the MATET logo; then the call to action. */
 export const EndFront: React.FC = () => {
@@ -82,7 +77,7 @@ export const EndFront: React.FC = () => {
 
       <FadeUp name="Phone" t={t} start={26.7}
         style={{ left: 0, right: 0, top: 1585, textAlign: "center", direction: "ltr", fontFamily: FONTS.sans, fontWeight: 600, fontSize: 52, letterSpacing: 1, color: COLORS.ink }}>
-        <WhatsApp />
+        <WhatsApp style={{ verticalAlign: -11, marginRight: 16 }} />
         +963 931 884 610
       </FadeUp>
       <FadeUp name="Business Solutions Center" t={t} start={27.0} style={{ left: 445, top: 1680, width: 190 }}>

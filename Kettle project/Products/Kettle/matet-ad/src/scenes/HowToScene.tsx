@@ -24,7 +24,7 @@ export const HowToFront: React.FC = () => {
 
   const press = t < 23.1 ? prog(t, 21.9, 22.5, ease.out2) : 0;
   const turn = prog(t, 22.5, 23.1, ease.inOut2);
-  const pw = project(t, "base", [320, 1, 165]);
+  const pw = project(t, "base", [PROFILE.power.x, 1, PROFILE.power.z]);
   const dial = project(t, "base", [D.x, D.h, D.z]);
   const a0 = -2.4;
   const a1 = a0 + turn * 2.6;

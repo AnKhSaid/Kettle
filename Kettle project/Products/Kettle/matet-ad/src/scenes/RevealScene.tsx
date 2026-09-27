@@ -21,10 +21,10 @@ type Callout = { name: string; at: number; part: Part; local: [number, number, n
 
 const D = PROFILE.dial;
 const CALLOUTS: Callout[] = [
-  { name: "Spout callout", at: 12.0, part: "pot", local: [-300, 330, 0], pos: [235, 640], label: <>عنق رفيع <small>لصبّ دقيق</small></> },
-  { name: "Capacity callout", at: 12.3, part: "pot", local: [60, 452, 40], pos: [850, 610], label: <>سعة <span dir="ltr">0.6</span> لتر</> },
+  { name: "Spout callout", at: 12.0, part: "pot", local: [-309, 300, 0], pos: [235, 640], label: <>عنق رفيع <small>لصبّ دقيق</small></> },
+  { name: "Capacity callout", at: 12.3, part: "pot", local: [62, 423, 60], pos: [850, 610], label: <>سعة <span dir="ltr">0.6</span> لتر</> },
   { name: "LED callout", at: 12.6, part: "base", local: [D.x, D.h, D.z], pos: [850, 1500], label: <>شاشة LED <small>دائرية</small></> },
-  { name: "Steel callout", at: 12.9, part: "pot", local: [100, 150, 140], pos: [240, 1500], label: <>ستانلس ستيل <span dir="ltr">304</span></> },
+  { name: "Steel callout", at: 12.9, part: "pot", local: [100, 150, 125], pos: [240, 1500], label: <>ستانلس ستيل <span dir="ltr">304</span></> },
 ];
 
 /** Sketch → 3D reveal, the product name, and four spec callouts pinned to the model. */
