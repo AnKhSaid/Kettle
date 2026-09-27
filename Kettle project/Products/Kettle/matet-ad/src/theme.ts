@@ -18,6 +18,8 @@ export const FONTS = {
   sans: "Alexandria",
   // Calligraphic Ruqaa for the riddle lines (reads like handwriting).
   ruqaa: "Ruqaa",
+  // Classical Naskh for the calm, literary lines of option 2.
+  naskh: "Amiri",
 } as const;
 
 const ARABIC = "U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFC, U+200C-200F";
@@ -45,6 +47,10 @@ export const fontsLoaded = Promise.all([
     weight: "700",
     unicodeRange: ARABIC,
   }),
+  ...[400, 700].flatMap((w) => [
+    loadFont({ family: FONTS.naskh, url: staticFile(`fonts/amiri-arabic-${w}-normal.woff2`), weight: String(w), unicodeRange: ARABIC }),
+    loadFont({ family: FONTS.naskh, url: staticFile(`fonts/amiri-latin-${w}-normal.woff2`), weight: String(w), unicodeRange: LATIN }),
+  ]),
   loadFont({
     family: FONTS.ruqaa,
     url: staticFile("fonts/aref-ruqaa-latin-700-normal.woff2"),

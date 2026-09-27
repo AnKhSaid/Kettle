@@ -1,9 +1,0 @@
-All sound effects in this folder are CC0 1.0 (public domain) — free for commercial use, no attribution required.
-Source: https://github.com/lavenderdotpet/CC0-Public-Domain-Sounds (a collection of CC0 packs)
-
-- Micro Pack - Organic Wooshes; bb - Books, Paper, Writing; bb - Smol Mechanisms; Micro Pack - Paper Cutter
-  by Ben Burnes (Abstraction) — each pack's README states: "These sounds are public domain (Creative Commons 0)."
-- kenney_interfacesounds, kenney_impactsounds — Kenney (www.kenney.nl), License: CC0
-- 40-cc0-water-splash-slime-sfx, 30-cc0-sfx-loops — CC0 packs (repository licence: CC0 1.0)
-
-File names are prefixed with the pack they came from.

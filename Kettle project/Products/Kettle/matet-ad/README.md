@@ -1,20 +1,24 @@
-# MATET smart mate kettle — Arabic video ad (Remotion)
+# MATET smart mate kettle — Arabic video ads (Remotion)
 
-This is a 30-second vertical ad (1080×1920, 30 fps) for Reels, TikTok, Shorts, Stories and WhatsApp Status. It is built with [Remotion](https://www.remotion.dev), where the whole video is React code. You can preview it, scrub it and edit it in **Remotion Studio**, then render it to MP4.
+Three 30-second vertical ads (1080×1920, 30 fps) for Reels, TikTok, Shorts, Stories and WhatsApp Status, built with [Remotion](https://www.remotion.dev): every video is React code you can preview, scrub and edit in **Remotion Studio**, then render to MP4.
 
-**Final video:** `matet-ad.mp4`
+| Option | Video | Style |
+|---|---|---|
+| 1 · Story | `option-1-story.mp4` | The riddle ("the secret isn't in the leaves…") with a realistic 3D kettle modelled on the product photo |
+| 2 · Illustrated | `option-2-illustrated.mp4` | Calm hand-drawn illustration on paper: one ink line turns leaf → drop → dial → kettle → sun → logo |
+| 3 · Product | `option-3-product.mp4` | Bold product ad: the real product photo, colour cuts on the beat, big Arabic type |
+
+All three use the same music ("Hopeful"), each with its own edit, so they can be compared on the visuals.
 
 ## Quick start
 
 ```bash
 npm i
-npm run dev        # opens Remotion Studio: preview, scrub, and edit text and timing
-npm run video      # renders out/matet-ad-raw.mp4, then masters the loudness to matet-ad.mp4
+npm run dev        # Remotion Studio: open Options/Option1-Story, Option2-Illustrated or Option3-Product
+npm run video:1    # renders and masters option-1-story.mp4 (also video:2, video:3)
 ```
 
-In Studio, open **MatetAd** for the full ad. The folder **MatetAd-Scenes** holds its two parts, **Opening** and **Product**, as their own timelines.
-
-## Story
+## Option 1 — story
 
 | Time | Picture | Arabic text |
 |---|---|---|
@@ -34,8 +38,10 @@ The music ("Hopeful") is exactly 100 BPM, so 1 bar is 2.4 s (72 frames). The sce
 
 ```
 src/
-  Root.tsx              compositions: MatetAd + MatetAd-Scenes/Opening, Product
-  MatetAd.tsx           paper background → Opening → Product → vignette → soundtrack
+  Root.tsx              compositions: Options/Option1-Story, Option2-Illustrated, Option3-Product
+  MatetAd.tsx           option 1: paper background → Opening → Product → vignette → soundtrack
+  option2/              option 2: illustrated kettle, gourd, line boil, the whole film + its cue sheet
+  option3/              option 3: product-photo kit (kit.tsx) and its shots + cue sheet
   scenes/               one file per scene (Leaf, Temperature, Reveal, Pour, Solar, HowTo, End)
   kettle/               3D kettle (three.js via @remotion/three), line art, poses
     pose.ts             where the kettle is at every moment + project() for 2D overlays
@@ -45,13 +51,13 @@ src/
 public/                 fonts, logo, prepared audio
 audio-src/              original CC0 music and sound effects (with credits)
 tools/
-  prepare_audio.py      edits the music to picture and converts the sound effects
+  prepare_audio.py      the three music edits + the sound effects
   stills.mjs            renders PNG stills for quick review (npm run stills -- 3,8,13)
   master.mjs            final loudness pass (-14 LUFS) with Remotion's bundled ffmpeg
 ```
 
 Remotion packages used:
-- `@remotion/three` for the 3D kettle.
+- `@remotion/three` for the 3D kettle (physically based materials, lit by a real studio HDRI).
 - `@remotion/paths` for the self-drawing lines.
 - `@remotion/rough-notation` for the hand-drawn X, underlines and circle.
 - `@remotion/effects` for the paper texture and light leak.
@@ -75,5 +81,7 @@ Remotion packages used:
 - **Remotion:** free for individuals and for companies with **up to 3 employees**. Larger for-profit companies need a Company License from https://www.remotion.pro/license.
 - **Music:** "Hopeful" by Kevin MacLeod, via FreePD, is public domain (CC0).
 - **Sound effects:** CC0 (Kenney, Ben Burnes and others). See `audio-src/sfx/CREDITS.txt`.
-- **Fonts:** Alexandria and Aref Ruqaa, under the SIL Open Font License.
+- **Fonts:** Alexandria, Aref Ruqaa and Amiri, under the SIL Open Font License.
+- **Studio HDRI:** "Studio Small 03" from Poly Haven, CC0.
+- **Product photos (option 3):** cut out of the MATET brochure.
 - **three.js:** MIT.
