@@ -11,7 +11,9 @@ export type Cue = {
   at: number;
   name: SfxName;
   /** level relative to the music, in dB (same values as the original mix) */
-  db: number;
+  db?: number;
+  /** or: peak level of the effect in the mix, in dBFS (files are normalised to 0.89) */
+  level?: number;
   rate?: number;
   /** play only this part of the file, in seconds */
   trim?: [number, number];
@@ -22,70 +24,61 @@ export type Cue = {
   fadeOut?: number;
 };
 
-// When the on-screen counter passes a value (100 -> 77, power2.inOut over 4.95-6.65 s).
-const counterTime = (v: number) => {
-  let lo = 0;
-  let hi = 1;
-  for (let i = 0; i < 40; i++) {
-    const mid = (lo + hi) / 2;
-    const e = mid < 0.5 ? 2 * mid * mid : 1 - (-2 * mid + 2) ** 2 / 2;
-    if (100 - 23 * e > v) lo = mid;
-    else hi = mid;
-  }
-  return 4.95 + 1.7 * ((lo + hi) / 2);
-};
-
-// The cue sheet. Every sound is a real recording of the thing on screen (or, for the kettle's
-// beep, the pure tone a piezo beeper makes), kept quiet under the calm piano.
+// The cue sheet. Each effect was generated for its moment in this ad (ElevenLabs Sound Effects,
+// prompts in tools/sfx-prompts.json) and is placed so its transient lands on the frame of the
+// action. `level` is the effect's peak in the mix; the piano is only a quiet bed underneath.
 export const CUES: Cue[] = [
+  { at: 0, name: "el-room-tone", level: -34, loopUntil: 30, fadeIn: 0.6, fadeOut: 1.0 },
   // A — the leaf lands on the water
-  { at: 1.5, name: "drop", db: -14 },
-  // B — the water boils, the counter is crossed out
-  { at: 2.3, name: "boil", db: 7, loopUntil: 4.8, envelope: (x) => 0.2 + 0.8 * x ** 1.5, fadeIn: 0.8, fadeOut: 0.02 },
-  { at: 2.6, name: "bubbles", db: -4, loopUntil: 4.8, envelope: (x) => x ** 2, fadeIn: 0.8, fadeOut: 0.02 },
-  { at: 4.19, name: "scribble", db: -9, trim: [0, 0.3] },
-  { at: 4.33, name: "scribble", db: -9, trim: [0.55, 0.85] },
-  // C — switched off: everything freezes, and the counter rolls down one detent per degree
-  { at: 4.8, name: "switch-off", db: -7 },
-  ...Array.from({ length: 23 }, (_, i): Cue => {
-    const k = i + 1;
-    return { at: counterTime(100 - k + 0.5), name: "detent", db: -18 - k * 0.1, trim: [0, 0.07], rate: 0.97 + (k % 3) * 0.03 };
-  }),
-  // D — the answer: the leaves scatter, the word is underlined
-  { at: 7.2, name: "paper-flutter", db: -8, trim: [0, 0.9] },
-  { at: 7.95, name: "felt-tip", db: -9, trim: [0, 0.45] },
-  { at: 8.85, name: "swish-gentle", db: -14 },
-  // E — the kettle is sketched, becomes real, and its display wakes up with a beep
-  { at: 9.5, name: "pencil", db: -2, trim: [0.2, 1.35] },
-  { at: 10.05, name: "felt-tip", db: -10 },
-  { at: 10.55, name: "swish-gentle", db: -15 },
-  { at: 11.35, name: "beep", db: -24 },
-  // F — the gourd is set down, the kettle lifted, water poured, the kettle put back
-  { at: 14.85, name: "gourd-knock", db: -14 },
-  { at: 14.9, name: "steel-ting", db: -27 },
-  { at: 15.1, name: "set-down", db: -21, rate: 1.15 },
-  { at: 15.7, name: "water-contact", db: -14 },
-  { at: 15.72, name: "stream", db: 9, loopUntil: 18.8, fadeIn: 0.15, fadeOut: 0.35 },
-  { at: 18.85, name: "drop", db: -17 },
-  { at: 19.05, name: "drop", db: -21, rate: 1.2 },
-  { at: 19.18, name: "set-down", db: -15 },
-  // G — solar: "500" is circled with a marker
-  { at: 19.95, name: "felt-tip", db: -10, trim: [0, 0.5] },
-  // H — press (click + beep) · turn (the dial's detents) · ready (double beep)
-  { at: 21.9, name: "button-click", db: -12, trim: [0.1, 0.35] },
-  { at: 22.0, name: "beep", db: -23 },
-  { at: 22.5, name: "dial-ratchet", db: -2, trim: [0, 0.62] },
-  { at: 23.12, name: "beep", db: -24 },
-  { at: 23.35, name: "beep", db: -24 },
-  // I — the leaf flies into the logo; the song's final note carries the call to action (26.4 s)
-  { at: 24.0, name: "paper-flutter", db: -8, trim: [0, 1.0] },
-  { at: 24.75, name: "felt-tip", db: -13, trim: [0, 0.5] },
+  { at: 1.11, name: "el-leaf-drop", level: -8 },
+  // B — the water boils, 100° is crossed out
+  { at: 2.2, name: "el-boil-rise", level: -6, trim: [0, 2.6] },
+  { at: 4.18, name: "el-marker-x", level: -10 },
+  // C — switched off: time stands still while the dial clicks down to 77°
+  { at: 4.75, name: "el-switch-off", level: -4 },
+  { at: 4.8, name: "el-freeze-air", level: -14 },
+  { at: 4.98, name: "el-detents-a", level: -14, trim: [0.8, 1.88] },
+  { at: 6.0, name: "el-detents-b", level: -15, trim: [0.7, 1.88] },
+  // D — the answer: leaves scatter, the word is underlined, the ring flies to the dial
+  { at: 7.12, name: "el-leaves-burst", level: -10 },
+  { at: 7.93, name: "el-underline", level: -14 },
+  { at: 8.82, name: "el-ring-whoosh", level: -14 },
+  // E — sketched, revealed, the display wakes up, the specs appear
+  { at: 9.5, name: "el-pencil-sketch", level: -10 },
+  { at: 10.4, name: "el-reveal-sweep", level: -14 },
+  { at: 11.35, name: "el-led-beep", level: -14 },
+  ...[12.0, 12.3, 12.6, 12.9].map((at): Cue => ({ at, name: "el-callout-tick", level: -20 })),
+  // F — gourd set down, kettle lifted, water poured, kettle put back
+  { at: 14.83, name: "el-gourd-set", level: -8 },
+  { at: 15.05, name: "el-kettle-lift", level: -14 },
+  { at: 15.58, name: "el-pour", level: -8 },
+  { at: 19.06, name: "el-kettle-return", level: -10 },
+  // G — solar
+  { at: 19.2, name: "el-sun-rise", level: -16 },
+  { at: 19.95, name: "el-marker-circle", level: -12 },
+  { at: 20.2, name: "el-power-flow", level: -18 },
+  // H — press · turn · ready
+  { at: 21.88, name: "el-button-press", level: -6 },
+  { at: 22.5, name: "el-dial-turn", level: -8, trim: [0, 0.62] },
+  { at: 23.12, name: "el-ready-beep", level: -12 },
+  { at: 23.25, name: "el-steam", level: -18 },
+  // I — the leaf flies into the logo; call to action on the song's final note (26.4 s)
+  { at: 24.0, name: "el-leaf-flight", level: -12 },
+  { at: 24.9, name: "el-logo-settle", level: -12 },
+  { at: 26.4, name: "el-call-to-action", level: -14 },
 ];
+
+// The piano stays a quiet bed under the effects and only comes up for the end card.
+const musicVolume = (f: number) => {
+  const t = f / 30;
+  return 0.2 + 0.25 * Math.min(1, Math.max(0, (t - 24) / 1.5));
+};
 
 // The original mix was: music + 0.9 * each effect at its dB. Files are normalised, so undo that.
 const volumeOf = (c: Cue, musicGain: number) => {
+  if (c.level !== undefined) return 10 ** (c.level / 20) / 0.89;
   const file = manifest.sfx[c.name];
-  return (0.9 * 10 ** (c.db / 20) * musicGain) / file.gain;
+  return (0.9 * 10 ** ((c.db ?? 0) / 20) * musicGain) / file.gain;
 };
 
 const SoundEffect: React.FC<{ cue: Cue; musicGain: number }> = ({ cue, musicGain }) => {
@@ -126,13 +119,13 @@ const SoundEffect: React.FC<{ cue: Cue; musicGain: number }> = ({ cue, musicGain
 };
 
 /** A music edit plus its cue sheet of sound effects. `musicGain` is the edit's normalisation gain. */
-export const Mix: React.FC<{ music: string; musicGain: number; cues: Cue[]; name: string }> = ({ music, musicGain, cues, name }) => (
+export const Mix: React.FC<{ music: string; musicGain: number; cues: Cue[]; name: string; volume?: (frame: number) => number }> = ({ music, musicGain, cues, name, volume }) => (
   <>
-    <Audio src={staticFile(music)} name={name} />
+    <Audio src={staticFile(music)} name={name} volume={volume} />
     {cues.map((cue, i) => (
       <SoundEffect key={i} cue={cue} musicGain={musicGain} />
     ))}
   </>
 );
 
-export const Soundtrack: React.FC = () => <Mix music="audio/music.wav" musicGain={manifest.musicGain} cues={CUES} name="Music: Lovely Piano Song (edited)" />;
+export const Soundtrack: React.FC = () => <Mix music="audio/music.wav" musicGain={manifest.musicGain} cues={CUES} name="Music: Lovely Piano Song (edited)" volume={musicVolume} />;

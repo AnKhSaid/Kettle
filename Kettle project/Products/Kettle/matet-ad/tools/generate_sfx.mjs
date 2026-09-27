@@ -1,5 +1,6 @@
 // Generates option 1's sound effects with ElevenLabs Sound Effects (text -> sound).
-//   ELEVENLABS_API_KEY=... node tools/generate_sfx.mjs [takes=3] [name,name,...]
+//   ELEVENLABS_API_KEY=... NODE_USE_ENV_PROXY=1 node tools/generate_sfx.mjs [takes=3] [name,name,...]
+// (NODE_USE_ENV_PROXY makes Node's fetch use HTTPS_PROXY where outbound traffic goes through one.)
 // Reads tools/sfx-prompts.json and writes audio-src/sfx/elevenlabs/<name>-<take>.mp3.
 // Existing takes are skipped, so it can be re-run after a failure without paying twice.
 import fs from "node:fs";

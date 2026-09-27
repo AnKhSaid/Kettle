@@ -8,7 +8,7 @@ Three 30-second vertical ads (1080×1920, 30 fps) for Reels, TikTok, Shorts, Sto
 | 2 · Illustrated | `option-2-illustrated.mp4` | Calm hand-drawn illustration on paper: one ink line turns leaf → drop → dial → kettle → sun → logo |
 | 3 · Product | `option-3-product.mp4` | Bold product ad: the real product photo, colour cuts on the beat, big Arabic type |
 
-Option 1 uses calm solo piano ("Lovely Piano Song") with realistic foley: a real water drop, boiling, the kettle's switch click, dial detents, its beep, a real water stream for the pour. Options 2 and 3 use "Hopeful".
+Option 1 is driven by sound effects made for each moment of the ad (ElevenLabs Sound Effects; prompts in `tools/sfx-prompts.json`, regenerate with `tools/generate_sfx.mjs`), over a quiet piano bed ("Lovely Piano Song") that only comes up for the end card. Options 2 and 3 use "Hopeful".
 
 ## Quick start
 

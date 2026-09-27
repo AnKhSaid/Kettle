@@ -10,3 +10,8 @@ Source: https://github.com/lavenderdotpet/CC0-Public-Domain-Sounds (a collection
 - 40-cc0-water-splash-slime-sfx, 30-cc0-sfx-loops — CC0 packs (repository licence: CC0 1.0)
 
 File names are prefixed with the pack they came from.
+
+elevenlabs/ — option 1's sound effects, generated for this ad with ElevenLabs Sound Effects
+from the prompts in tools/sfx-prompts.json (two takes each; the chosen takes are listed in
+tools/prepare_audio.py as "el-*"). Commercial use follows the ElevenLabs plan they were made on:
+check that the account's plan allows commercial use before publishing.

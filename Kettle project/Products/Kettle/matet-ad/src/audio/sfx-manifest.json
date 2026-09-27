@@ -244,6 +244,151 @@
    "file": "audio/sfx/beep.wav",
    "gain": 0.8220504471770201,
    "seconds": 0.73
+  },
+  "el-room-tone": {
+   "file": "audio/sfx/el-room-tone.wav",
+   "gain": 22.25089986480627,
+   "seconds": 22.0
+  },
+  "el-leaf-drop": {
+   "file": "audio/sfx/el-leaf-drop.wav",
+   "gain": 3.3732478845518568,
+   "seconds": 1.48
+  },
+  "el-boil-rise": {
+   "file": "audio/sfx/el-boil-rise.wav",
+   "gain": 2.7410938474871975,
+   "seconds": 3.0
+  },
+  "el-marker-x": {
+   "file": "audio/sfx/el-marker-x.wav",
+   "gain": 4.577254325871872,
+   "seconds": 0.8
+  },
+  "el-switch-off": {
+   "file": "audio/sfx/el-switch-off.wav",
+   "gain": 0.9617531284760976,
+   "seconds": 1.0
+  },
+  "el-freeze-air": {
+   "file": "audio/sfx/el-freeze-air.wav",
+   "gain": 2.6872541374000165,
+   "seconds": 2.4
+  },
+  "el-detents-a": {
+   "file": "audio/sfx/el-detents-a.wav",
+   "gain": 5.523931853311327,
+   "seconds": 1.88
+  },
+  "el-detents-b": {
+   "file": "audio/sfx/el-detents-b.wav",
+   "gain": 3.8535515401293097,
+   "seconds": 1.88
+  },
+  "el-leaves-burst": {
+   "file": "audio/sfx/el-leaves-burst.wav",
+   "gain": 5.895277418648423,
+   "seconds": 1.28
+  },
+  "el-underline": {
+   "file": "audio/sfx/el-underline.wav",
+   "gain": 2.2500513647160836,
+   "seconds": 0.6
+  },
+  "el-ring-whoosh": {
+   "file": "audio/sfx/el-ring-whoosh.wav",
+   "gain": 1.0350792641998598,
+   "seconds": 0.8
+  },
+  "el-pencil-sketch": {
+   "file": "audio/sfx/el-pencil-sketch.wav",
+   "gain": 3.8549082909204406,
+   "seconds": 1.48
+  },
+  "el-reveal-sweep": {
+   "file": "audio/sfx/el-reveal-sweep.wav",
+   "gain": 0.9099849141528404,
+   "seconds": 1.0
+  },
+  "el-led-beep": {
+   "file": "audio/sfx/el-led-beep.wav",
+   "gain": 1.9528774206533626,
+   "seconds": 0.48
+  },
+  "el-callout-tick": {
+   "file": "audio/sfx/el-callout-tick.wav",
+   "gain": 3.114060800800627,
+   "seconds": 0.48
+  },
+  "el-gourd-set": {
+   "file": "audio/sfx/el-gourd-set.wav",
+   "gain": 2.574419999463246,
+   "seconds": 1.0
+  },
+  "el-kettle-lift": {
+   "file": "audio/sfx/el-kettle-lift.wav",
+   "gain": 4.330620624087725,
+   "seconds": 0.8
+  },
+  "el-pour": {
+   "file": "audio/sfx/el-pour.wav",
+   "gain": 0.8397941373578676,
+   "seconds": 3.4
+  },
+  "el-kettle-return": {
+   "file": "audio/sfx/el-kettle-return.wav",
+   "gain": 3.1067072981719206,
+   "seconds": 0.8
+  },
+  "el-sun-rise": {
+   "file": "audio/sfx/el-sun-rise.wav",
+   "gain": 0.9116514012678922,
+   "seconds": 1.2
+  },
+  "el-marker-circle": {
+   "file": "audio/sfx/el-marker-circle.wav",
+   "gain": 4.053289379335168,
+   "seconds": 0.68
+  },
+  "el-power-flow": {
+   "file": "audio/sfx/el-power-flow.wav",
+   "gain": 18.09910685599574,
+   "seconds": 1.28
+  },
+  "el-button-press": {
+   "file": "audio/sfx/el-button-press.wav",
+   "gain": 3.742108548964208,
+   "seconds": 0.8
+  },
+  "el-dial-turn": {
+   "file": "audio/sfx/el-dial-turn.wav",
+   "gain": 1.7984962836331297,
+   "seconds": 0.8
+  },
+  "el-ready-beep": {
+   "file": "audio/sfx/el-ready-beep.wav",
+   "gain": 84.60843789919824,
+   "seconds": 0.8
+  },
+  "el-steam": {
+   "file": "audio/sfx/el-steam.wav",
+   "gain": 1.7232234599221663,
+   "seconds": 1.48
+  },
+  "el-leaf-flight": {
+   "file": "audio/sfx/el-leaf-flight.wav",
+   "gain": 0.7830219230282716,
+   "seconds": 1.0
+  },
+  "el-logo-settle": {
+   "file": "audio/sfx/el-logo-settle.wav",
+   "gain": 0.9154847101022319,
+   "seconds": 0.8
+  },
+  "el-call-to-action": {
+   "file": "audio/sfx/el-call-to-action.wav",
+   "gain": 0.8289801023300976,
+   "seconds": 0.8
   }
  }
 }

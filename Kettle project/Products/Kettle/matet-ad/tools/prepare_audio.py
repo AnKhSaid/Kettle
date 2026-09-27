@@ -209,6 +209,36 @@ SFX = {
     "water-contact": (WA + "bubble_03.ogg", {"lp": 6000}),
     "stream": ("bb_-_Fans_and_Drones_(Jul_2021)__Sink_and_Faucet_10-15s.wav", {"loop": True, "lp": 7000, "hp": 180}),
     "beep": ("synth:beep", {}),
+    # option 1: sounds generated for this ad with ElevenLabs Sound Effects (see tools/sfx-prompts.json)
+    "el-room-tone": ("elevenlabs/room-tone-1.mp3", {"dry": True}),
+    "el-leaf-drop": ("elevenlabs/leaf-drop-1.mp3", {"dry": True}),
+    "el-boil-rise": ("elevenlabs/boil-rise-1.mp3", {"dry": True}),
+    "el-marker-x": ("elevenlabs/marker-x-2.mp3", {"dry": True}),
+    "el-switch-off": ("elevenlabs/switch-off-2.mp3", {"dry": True}),
+    "el-freeze-air": ("elevenlabs/freeze-air-1.mp3", {"dry": True}),
+    "el-detents-a": ("elevenlabs/counter-detents-2.mp3", {"dry": True}),
+    "el-detents-b": ("elevenlabs/counter-detents-1.mp3", {"dry": True}),
+    "el-leaves-burst": ("elevenlabs/leaves-burst-1.mp3", {"dry": True}),
+    "el-underline": ("elevenlabs/underline-2.mp3", {"dry": True}),
+    "el-ring-whoosh": ("elevenlabs/ring-whoosh-2.mp3", {"dry": True}),
+    "el-pencil-sketch": ("elevenlabs/pencil-sketch-1.mp3", {"dry": True}),
+    "el-reveal-sweep": ("elevenlabs/reveal-sweep-2.mp3", {"dry": True}),
+    "el-led-beep": ("elevenlabs/led-beep-1.mp3", {"dry": True}),
+    "el-callout-tick": ("elevenlabs/callout-tick-1.mp3", {"dry": True}),
+    "el-gourd-set": ("elevenlabs/gourd-set-2.mp3", {"dry": True}),
+    "el-kettle-lift": ("elevenlabs/kettle-lift-2.mp3", {"dry": True}),
+    "el-pour": ("elevenlabs/pour-2.mp3", {"dry": True, "lp": 9000}),
+    "el-kettle-return": ("elevenlabs/kettle-return-1.mp3", {"dry": True}),
+    "el-sun-rise": ("elevenlabs/sun-rise-1.mp3", {"dry": True}),
+    "el-marker-circle": ("elevenlabs/marker-circle-2.mp3", {"dry": True}),
+    "el-power-flow": ("elevenlabs/power-flow-2.mp3", {"dry": True, "lp": 8000}),
+    "el-button-press": ("elevenlabs/button-press-1.mp3", {"dry": True}),
+    "el-dial-turn": ("elevenlabs/dial-turn-1.mp3", {"dry": True}),
+    "el-ready-beep": ("elevenlabs/ready-beep-1.mp3", {"dry": True}),
+    "el-steam": ("elevenlabs/steam-1.mp3", {"dry": True, "lp": 9000}),
+    "el-leaf-flight": ("elevenlabs/leaf-flight-1.mp3", {"dry": True}),
+    "el-logo-settle": ("elevenlabs/logo-settle-2.mp3", {"dry": True}),
+    "el-call-to-action": ("elevenlabs/call-to-action-1.mp3", {"dry": True}),
 }
 
 
@@ -234,7 +264,7 @@ for name, (src, opts) in SFX.items():
         x = x[::-1].copy()
     if opts.get("lp"):
         x = signal.sosfilt(sos("lowpass", opts["lp"], 2), x, axis=0)
-    if not opts.get("loop"):
+    if not opts.get("loop") and not opts.get("dry"):
         x = room(x)
     g = write(os.path.join(OUT, "sfx", f"{name}.wav"), x)
     manifest["sfx"][name] = {"file": f"audio/sfx/{name}.wav", "gain": g, "seconds": round(len(x) / SR, 3)}
