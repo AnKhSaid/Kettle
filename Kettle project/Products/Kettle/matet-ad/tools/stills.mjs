@@ -6,9 +6,9 @@ import fs from "node:fs";
 import path from "node:path";
 
 const times = (process.argv[2] ?? "1,4,7.6,11,13,16,20,22.5,25,28").split(",").map(Number);
-const compId = process.argv[3] ?? "MatetAd";
+const compId = process.argv[3] ?? "Option1-Story";
 const root = path.resolve(import.meta.dirname, "..");
-const outDir = path.join(root, "out", "stills");
+const outDir = path.join(root, "out", "stills", compId);
 fs.mkdirSync(outDir, { recursive: true });
 
 const browserExecutable = process.env.REMOTION_BROWSER_EXECUTABLE ?? "/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell";

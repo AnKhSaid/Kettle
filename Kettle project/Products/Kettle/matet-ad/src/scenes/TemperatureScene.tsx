@@ -70,7 +70,8 @@ export const TemperatureBack: React.FC = () => {
 
   return (
     <AbsoluteFill style={{ translate: sh.translate, rotate: sh.rotate }}>
-      <svg width={1080} height={1920} viewBox="0 0 1080 1920" style={{ position: "absolute", inset: 0 }}>
+      {/* overflow visible: the flood must extend past the frame while the camera shakes */}
+      <svg width={1080} height={1920} viewBox="0 0 1080 1920" style={{ position: "absolute", inset: 0, overflow: "visible" }}>
         <defs>
           <radialGradient id="boil-grad" cx="0.5" cy="0.55" r="0.6">
             <stop offset="0" stopColor="#D2704A" />

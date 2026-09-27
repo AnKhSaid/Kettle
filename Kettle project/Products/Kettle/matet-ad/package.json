@@ -36,13 +36,12 @@
   "scripts": {
     "dev": "remotion studio",
     "audio": "python3 tools/prepare_audio.py",
-    "render": "remotion render MatetAd out/matet-ad-raw.mp4 --codec=h264 --crf=17 --audio-bitrate=256k",
-    "master": "node tools/master.mjs",
-    "video": "npm run render && npm run master",
     "stills": "node tools/stills.mjs",
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
-    "lint": "eslint src && tsc"
+    "lint": "eslint src && tsc",
+    "render:1": "remotion render Option1-Story out/option-1-story-raw.mp4 --codec=h264 --crf=17 --audio-bitrate=256k",
+    "video:1": "npm run render:1 && node tools/master.mjs out/option-1-story-raw.mp4 option-1-story.mp4"
   },
   "sideEffects": [
     "*.css"
