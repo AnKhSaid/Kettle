@@ -72,7 +72,7 @@ lift.add(pot);
 pot.position.set(-PROFILE.pivot[0], -PROFILE.pivot[1], 0);
 gourd.position.set(-440, -PROFILE.base.h, 90);
 
-export const GOURD_SCALE = 1.25;
+export const GOURD_SCALE = 1.4;
 
 export const applyPose = (o: { rig: THREE.Object3D; lift: THREE.Object3D; gourd: THREE.Object3D }, p: KettlePose) => {
   o.rig.position.set(p.rig.x, p.rig.y, 0);

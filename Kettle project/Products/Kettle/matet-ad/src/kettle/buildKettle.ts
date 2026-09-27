@@ -190,9 +190,9 @@ export const buildKettle = () => {
   floor.receiveShadow = true;
 
   // ---------------- carved mate gourd with yerba and a steel bombilla
-  const { gourd, wetMat } = buildGourd(steel);
+  const { gourd, wetMat, ready: gourdReady } = buildGourd(steel);
 
-  return { pot, base, dial, floor, gourd, wetMat, powerMat, footAoMat, setLed, texturesReady: logoReady };
+  return { pot, base, dial, floor, gourd, wetMat, powerMat, footAoMat, setLed, texturesReady: Promise.all([logoReady, gourdReady]) };
 };
 
 export type KettleKit = ReturnType<typeof buildKettle>;
@@ -394,111 +394,88 @@ const drawLed = (ctx: CanvasRenderingContext2D, value: number, on: number) => {
 };
 
 // ---------------------------------------------------------------- gourd
+// Profile measured from the carved gourd in the brochure photo (radius, height): a foot with a
+// groove, a round belly, a slim neck and a rounded lip, then the inner wall going down.
+const GOURD_PROFILE: [number, number][] = [
+  [0, 0], [30, 0], [40, 1], [47, 4], [52, 8], [58, 14], [61.4, 22], [63, 31], [62, 37], [61.5, 40], [62.8, 44],
+  [67, 53], [71.2, 63], [75, 72], [77.1, 81], [78.4, 95], [78, 105], [76.9, 118], [74.5, 128], [72.7, 137],
+  [70, 145], [68.3, 152], [68, 158], [69.5, 165], [72.9, 170], [74.8, 177], [75.2, 184], [74.4, 189], [72.4, 192],
+  [69.8, 193.2], [67.2, 192.4], [65.6, 190], [64.8, 185], [64.2, 176], [63.5, 160],
+];
+const GOURD_TOP = 185;
+const INNER_FROM = 29; // index of the lip's top: after it the profile is the inside wall
+
 const buildGourd = (steel: THREE.Material) => {
   const gourd = new THREE.Group();
-  const woodCanvas = document.createElement("canvas");
-  woodCanvas.width = 1024;
-  woodCanvas.height = 512;
-  {
-    const c = woodCanvas.getContext("2d")!;
-    const g = c.createLinearGradient(0, 0, 0, 512);
-    g.addColorStop(0, "#6e4122");
-    g.addColorStop(0.5, "#8a5530");
-    g.addColorStop(1, "#5c3519");
-    c.fillStyle = g;
-    c.fillRect(0, 0, 1024, 512);
-    for (let i = 0; i < 900; i++) {
-      const y = (i * 97.13) % 512;
-      const x = (i * 331.7) % 1024;
-      c.strokeStyle = `rgba(50,25,10,${0.05 + (i % 7) * 0.012})`;
-      c.lineWidth = 1 + (i % 3);
-      c.beginPath();
-      c.moveTo(x, y);
-      c.bezierCurveTo(x + 40, y + 6, x + 80, y - 6, x + 130, y + 3);
-      c.stroke();
-    }
-    c.strokeStyle = "rgba(40,18,6,0.8)";
-    c.lineWidth = 5;
-    for (const yy of [150, 330]) {
-      c.beginPath();
-      c.moveTo(0, yy);
-      c.lineTo(1024, yy);
-      c.stroke();
-    }
-    for (let k = 0; k < 16; k++) {
-      const x = k * 64 + 32;
-      c.beginPath();
-      c.moveTo(x, 170);
-      c.lineTo(x + 26, 240);
-      c.lineTo(x, 310);
-      c.lineTo(x - 26, 240);
-      c.closePath();
-      c.stroke();
-      c.beginPath();
-      c.arc(x, 240, 9, 0, Math.PI * 2);
-      c.stroke();
-      c.fillStyle = "rgba(40,18,6,0.7)";
-      c.beginPath();
-      c.arc(x + 32, 240, 5, 0, Math.PI * 2);
-      c.fill();
-      c.beginPath();
-      c.moveTo(x - 20, 100);
-      c.quadraticCurveTo(x, 60, x + 20, 100);
-      c.stroke();
-      c.beginPath();
-      c.moveTo(x - 20, 380);
-      c.quadraticCurveTo(x, 420, x + 20, 380);
-      c.stroke();
-    }
+  const loader = new THREE.TextureLoader();
+  const wood = new THREE.MeshPhysicalMaterial({ roughness: 0.48, clearcoat: 0.45, clearcoatRoughness: 0.3, bumpScale: 1.5, vertexColors: true });
+  const yerbaMat = new THREE.MeshStandardMaterial({ roughness: 0.85, bumpScale: 2 });
+  const ready = Promise.all([
+    loader.loadAsync(staticFile("images/gourd-wood.jpg")).then((tex) => {
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.wrapS = THREE.RepeatWrapping;
+      tex.anisotropy = 8;
+      wood.map = tex;
+      wood.bumpMap = tex;
+      wood.needsUpdate = true;
+    }),
+    loader.loadAsync(staticFile("images/yerba.jpg")).then((tex) => {
+      tex.colorSpace = THREE.SRGBColorSpace;
+      yerbaMat.map = tex;
+      yerbaMat.bumpMap = tex;
+      yerbaMat.needsUpdate = true;
+    }),
+  ]);
+
+  // smooth the measured points into a dense curve, remembering where the inside begins
+  const spline = new THREE.SplineCurve(GOURD_PROFILE.map(([r, y]) => new THREE.Vector2(r, y)));
+  const n = 220;
+  const pts = spline.getSpacedPoints(n);
+  const innerStart = Math.round((INNER_FROM / (GOURD_PROFILE.length - 1)) * n);
+  const geo = new THREE.LatheGeometry(pts, 128);
+  // texture runs up the outside by height; the inside wall is darker end grain
+  const uv = geo.getAttribute("uv");
+  const pos = geo.getAttribute("position");
+  const colors = new Float32Array(pos.count * 3);
+  for (let i = 0; i < pos.count; i++) {
+    const j = i % (n + 1);
+    uv.setY(i, Math.min(1, pos.getY(i) / GOURD_TOP));
+    const shade = j > innerStart ? 0.42 : 1;
+    colors.set([shade, shade, shade], i * 3);
   }
-  const woodTex = new THREE.CanvasTexture(woodCanvas);
-  woodTex.colorSpace = THREE.SRGBColorSpace;
-  woodTex.wrapS = THREE.RepeatWrapping;
-  woodTex.anisotropy = 8;
-  const bumpTex = new THREE.CanvasTexture(woodCanvas);
-  bumpTex.wrapS = THREE.RepeatWrapping;
-  const wood = new THREE.MeshPhysicalMaterial({ map: woodTex, bumpMap: bumpTex, bumpScale: -3, roughness: 0.55, clearcoat: 0.35, clearcoatRoughness: 0.35 });
-  const gpts: [number, number][] = [[0, 0], [45, 0], [80, 12], [104, 40], [114, 76], [110, 112], [98, 140], [88, 160], [87, 172], [92, 184], [96, 190], [90, 192], [82, 186], [80, 176]];
-  const gourdMesh = new THREE.Mesh(new THREE.LatheGeometry(gpts.map(([r, y]) => new THREE.Vector2(r, y)), 96), wood);
+  geo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+  const gourdMesh = new THREE.Mesh(geo, wood);
   gourdMesh.castShadow = true;
+  gourdMesh.receiveShadow = true;
   gourd.add(gourdMesh);
-  const yCanvas = document.createElement("canvas");
-  yCanvas.width = yCanvas.height = 512;
-  {
-    const c = yCanvas.getContext("2d")!;
-    c.fillStyle = "#6f8f2e";
-    c.fillRect(0, 0, 512, 512);
-    for (let i = 0; i < 2600; i++) {
-      const a = i * 2.39996;
-      const r = Math.sqrt(i / 2600) * 256;
-      c.fillStyle = ["#8fae3c", "#55711f", "#a8c25a", "#435a18", "#c4b35a"][i % 5];
-      c.save();
-      c.translate(256 + Math.cos(a) * r, 256 + Math.sin(a) * r);
-      c.rotate(a * 3.1);
-      c.fillRect(-7, -2.5, 14, 5);
-      c.restore();
-    }
-  }
-  const yTex = new THREE.CanvasTexture(yCanvas);
-  yTex.colorSpace = THREE.SRGBColorSpace;
-  const yerba = new THREE.Mesh(new THREE.CircleGeometry(82, 64), new THREE.MeshStandardMaterial({ map: yTex, roughness: 0.9 }));
+
+  const yerba = new THREE.Mesh(new THREE.CircleGeometry(64.5, 96), yerbaMat);
   yerba.rotation.x = -Math.PI / 2;
   yerba.position.y = 178;
   gourd.add(yerba);
   const wetMat = new THREE.MeshStandardMaterial({ color: 0x2e4a12, roughness: 0.05, metalness: 0.2, transparent: true, opacity: 0 });
-  const wet = new THREE.Mesh(new THREE.CircleGeometry(82, 64), wetMat);
+  const wet = new THREE.Mesh(new THREE.CircleGeometry(64.5, 96), wetMat);
   wet.rotation.x = -Math.PI / 2;
   wet.position.y = 178.5;
   gourd.add(wet);
+
   const bc = new THREE.CatmullRomCurve3([
-    new THREE.Vector3(20, 120, 10),
-    new THREE.Vector3(38, 200, 14),
-    new THREE.Vector3(62, 300, 18),
-    new THREE.Vector3(72, 330, 18),
-    new THREE.Vector3(86, 336, 18),
+    new THREE.Vector3(14, 120, 8),
+    new THREE.Vector3(28, 200, 12),
+    new THREE.Vector3(48, 300, 16),
+    new THREE.Vector3(58, 330, 16),
+    new THREE.Vector3(72, 336, 16),
   ]);
-  const bombilla = new THREE.Mesh(new THREE.TubeGeometry(bc, 64, 6, 14, false), steel);
+  const bombilla = new THREE.Mesh(new THREE.TubeGeometry(bc, 96, 6, 20, false), steel);
   bombilla.castShadow = true;
   gourd.add(bombilla);
-  return { gourd, wetMat };
+  const tip = new THREE.Mesh(new THREE.SphereGeometry(6, 20, 12), steel);
+  tip.position.copy(bc.getPoint(1));
+  gourd.add(tip);
+  // the bombilla's collar, a little below the mouthpiece
+  const collar = new THREE.Mesh(new THREE.TorusGeometry(6.2, 1.6, 10, 24), steel);
+  collar.position.copy(bc.getPoint(0.72));
+  collar.lookAt(bc.getPoint(0.74).add(new THREE.Vector3().subVectors(bc.getPoint(0.74), bc.getPoint(0.72))));
+  gourd.add(collar);
+  return { gourd, wetMat, ready };
 };

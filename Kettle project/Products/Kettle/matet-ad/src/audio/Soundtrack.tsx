@@ -30,48 +30,41 @@ export type Cue = {
 export const CUES: Cue[] = [
   { at: 0, name: "el-room-tone", level: -34, loopUntil: 30, fadeIn: 0.6, fadeOut: 1.0 },
   // A — the leaf lands on the water
-  { at: 1.11, name: "el-leaf-drop", level: -8 },
+  { at: 1.11, name: "el-leaf-drop", level: -11 },
   // B — the water boils, 100° is crossed out
-  { at: 2.2, name: "el-boil-rise", level: -6, trim: [0, 2.6] },
-  { at: 4.18, name: "el-marker-x", level: -10 },
+  { at: 2.2, name: "el-boil-rise", level: -10, trim: [0, 2.6] },
+  { at: 4.18, name: "el-marker-x", level: -12 },
   // C — switched off: time stands still while the dial clicks down to 77°
-  { at: 4.75, name: "el-switch-off", level: -4 },
+  { at: 4.75, name: "el-switch-off", level: -12 },
   { at: 4.8, name: "el-freeze-air", level: -14 },
   { at: 4.98, name: "el-detents-a", level: -14, trim: [0.8, 1.88] },
   { at: 6.0, name: "el-detents-b", level: -15, trim: [0.7, 1.88] },
-  // D — the answer: leaves scatter, the word is underlined, the ring flies to the dial
+  // D — the answer: leaves scatter, the ring flies to the dial
   { at: 7.12, name: "el-leaves-burst", level: -10 },
-  { at: 7.93, name: "el-underline", level: -14 },
   { at: 8.82, name: "el-ring-whoosh", level: -14 },
-  // E — sketched, revealed, the display wakes up, the specs appear
-  { at: 9.5, name: "el-pencil-sketch", level: -10 },
+  // E — revealed, the display wakes up, the specs appear
   { at: 10.4, name: "el-reveal-sweep", level: -14 },
   { at: 11.35, name: "el-led-beep", level: -14 },
   ...[12.0, 12.3, 12.6, 12.9].map((at): Cue => ({ at, name: "el-callout-tick", level: -20 })),
   // F — gourd set down, kettle lifted, water poured, kettle put back
-  { at: 14.83, name: "el-gourd-set", level: -8 },
+  { at: 14.83, name: "el-gourd-set", level: -12 },
   { at: 15.05, name: "el-kettle-lift", level: -14 },
-  { at: 15.58, name: "el-pour", level: -8 },
-  { at: 19.06, name: "el-kettle-return", level: -10 },
-  // G — solar
-  { at: 19.2, name: "el-sun-rise", level: -16 },
-  { at: 19.95, name: "el-marker-circle", level: -12 },
+  { at: 15.58, name: "el-pour", level: -18 },
+  { at: 19.06, name: "el-kettle-return", level: -13 },
+  // G — solar: energy runs to the base
   { at: 20.2, name: "el-power-flow", level: -18 },
   // H — press · turn · ready
-  { at: 21.88, name: "el-button-press", level: -6 },
-  { at: 22.5, name: "el-dial-turn", level: -8, trim: [0, 0.62] },
-  { at: 23.12, name: "el-ready-beep", level: -12 },
-  { at: 23.25, name: "el-steam", level: -18 },
-  // I — the leaf flies into the logo; call to action on the song's final note (26.4 s)
-  { at: 24.0, name: "el-leaf-flight", level: -12 },
-  { at: 24.9, name: "el-logo-settle", level: -12 },
-  { at: 26.4, name: "el-call-to-action", level: -14 },
+  { at: 21.88, name: "el-button-press", level: -12 },
+  { at: 22.5, name: "el-dial-turn", level: -12, trim: [0, 0.62] },
+  { at: 23.12, name: "el-ready-beep", level: -14 },
+  // I — the leaf flies into the logo; the song's final note carries the call to action (26.4 s)
+  { at: 24.0, name: "paper-flutter", db: -8, trim: [0, 1.0] },
 ];
 
 // The piano stays a quiet bed under the effects and only comes up for the end card.
 const musicVolume = (f: number) => {
   const t = f / 30;
-  return 0.2 + 0.25 * Math.min(1, Math.max(0, (t - 24) / 1.5));
+  return 0.1 + 0.25 * Math.min(1, Math.max(0, (t - 24) / 1.5));
 };
 
 // The original mix was: music + 0.9 * each effect at its dB. Files are normalised, so undo that.
